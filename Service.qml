@@ -385,7 +385,61 @@ Item {
     if ("blankDelay" in out) out.blankDelay = Math.round(clampNumber(out.blankDelay, 1, 300, d.blankDelay))
     if ("twelveHour" in out) out.twelveHour = out.twelveHour === true
     if ("font" in out) out.font = typeof out.font === "string" ? out.font : ""
+    if ("widgets" in out) out.widgets = normalizeWidgets(out.widgets)
     return out
+  }
+
+  // The overlay widgets, each off by default, with its default corner and
+  // extras. Only these names and fields survive normalization.
+  readonly property var widgetDefaults: ({
+    media: { enabled: false, corner: "bottom-left" },
+    volume: { enabled: false, corner: "bottom-left" },
+    weather: { enabled: false, corner: "top-left", unit: "auto" },
+    network: { enabled: false, corner: "top-right" },
+    power: { enabled: false, corner: "bottom-right" },
+    clock: { enabled: false, corner: "top-left", timeFormat: "", dateFormat: "dddd, MMMM d" },
+    avatar: { enabled: false, corner: "top-right", shape: "circle" }
+  })
+  readonly property var widgetCorners: ["top-left", "top-right", "bottom-left", "bottom-right"]
+
+  function normalizeWidgets(w) {
+    var src = w && typeof w === "object" && !Array.isArray(w) ? w : {}
+    var out = {}
+    for (var name in widgetDefaults) {
+      var d = widgetDefaults[name]
+      var s = src[name] && typeof src[name] === "object" && !Array.isArray(src[name]) ? src[name] : {}
+      var o = {
+        enabled: typeof s.enabled === "boolean" ? s.enabled : d.enabled,
+        corner: widgetCorners.indexOf(s.corner) !== -1 ? s.corner : d.corner
+      }
+      if ("unit" in d) o.unit = ["auto", "metric", "imperial"].indexOf(s.unit) !== -1 ? s.unit : d.unit
+      if ("timeFormat" in d) o.timeFormat = typeof s.timeFormat === "string" ? s.timeFormat : d.timeFormat
+      if ("dateFormat" in d) o.dateFormat = typeof s.dateFormat === "string" ? s.dateFormat : d.dateFormat
+      if ("shape" in d) o.shape = ["circle", "square"].indexOf(s.shape) !== -1 ? s.shape : d.shape
+      out[name] = o
+    }
+    return out
+  }
+
+  readonly property var widgetSettings: normalizeWidgets(settings ? settings.widgets : null)
+  readonly property bool anyWidgetEnabled: {
+    for (var name in widgetSettings) if (widgetSettings[name].enabled) return true
+    return false
+  }
+
+  // Merges `patch` into one widget's settings; bad fields fall back to defaults.
+  function setWidget(name, patch) {
+    var n = String(name || "")
+    if (!Object.prototype.hasOwnProperty.call(widgetDefaults, n)) return "unknown-widget"
+    if (!patch || typeof patch !== "object" || Array.isArray(patch)) return "bad-patch"
+    var all = {}
+    for (var w in widgetSettings) all[w] = widgetSettings[w]
+    var merged = {}
+    for (var k in all[n]) merged[k] = all[n][k]
+    for (var p in patch) merged[p] = patch[p]
+    all[n] = merged
+    saveSettings({ widgets: all })
+    return "ok"
   }
 
   function setSetting(key, value) {
@@ -676,6 +730,7 @@ Item {
       color: Commons.Color.background
 
       LockHost {
+        id: surfaceHost
         anchors.fill: parent
         designPath: root.activeDesignPath
         fallbackPath: root.fallbackDesignPath
@@ -702,7 +757,36 @@ Item {
         onClearFailureRequested: root.failureMessage = ""
         onWakeRequested: root.runWake()
       }
+
+      // Widgets load in their own Loader from a file, so a widget that fails
+      // to compile leaves the design and its password field untouched.
+      // Hidden while dimmed so the dim blank mode darkens everything.
+      Loader {
+        id: surfaceWidgets
+        anchors.fill: parent
+        z: 10
+        active: root.anyWidgetEnabled
+        visible: !root.displayDimmed
+        source: Qt.resolvedUrl("widgets/WidgetLayer.qml")
+        onLoaded: root.bindWidgetLayer(item, function() { return root.lockRequested && !root.displayBlanked })
+      }
+      Connections {
+        target: surfaceWidgets.item
+        ignoreUnknownSignals: true
+        function onInteracted() { root.runWake(); surfaceHost.forcePasswordFocus() }
+      }
     }
+  }
+
+  function bindWidgetLayer(item, live) {
+    item.live = Qt.binding(live)
+    item.config = Qt.binding(function() { return root.widgetSettings })
+    item.twelveHour = Qt.binding(function() { return root.twelveHour })
+    item.displayFont = Qt.binding(function() { return root.displayFont })
+    item.avatarPath = Qt.binding(function() { return root.avatarPath })
+    item.avatarVersion = Qt.binding(function() { return root.avatarVersion })
+    item.displayName = Qt.binding(function() { return root.displayName })
+    item.designsDir = Qt.binding(function() { return root.designsDir })
   }
 
   PanelWindow {
@@ -721,22 +805,32 @@ Item {
     Loader {
       anchors.fill: parent
       active: root.previewVisible
-      sourceComponent: LockHost {
-        designPath: root.previewDesign ? root.previewDesign.path : root.fallbackDesignPath
-        fallbackPath: root.fallbackDesignPath
-        backgroundPath: root.backgroundPath
-        backgroundVersion: root.backgroundVersion
-        fingerprintConfigured: root.fingerprintConfigured
-        inputEnabled: false
-        loadBackground: true
-        videoPlaying: root.previewVisible
-        twelveHour: root.twelveHour
-        displayFont: root.displayFont
-        avatarPath: root.avatarPath
-        avatarVersion: root.avatarVersion
-        displayName: root.displayName
-        wallpaperBlur: root.wallpaperBlur
-        wallpaperDim: root.wallpaperDim
+      sourceComponent: Item {
+        LockHost {
+          anchors.fill: parent
+          designPath: root.previewDesign ? root.previewDesign.path : root.fallbackDesignPath
+          fallbackPath: root.fallbackDesignPath
+          backgroundPath: root.backgroundPath
+          backgroundVersion: root.backgroundVersion
+          fingerprintConfigured: root.fingerprintConfigured
+          inputEnabled: false
+          loadBackground: true
+          videoPlaying: root.previewVisible
+          twelveHour: root.twelveHour
+          displayFont: root.displayFont
+          avatarPath: root.avatarPath
+          avatarVersion: root.avatarVersion
+          displayName: root.displayName
+          wallpaperBlur: root.wallpaperBlur
+          wallpaperDim: root.wallpaperDim
+        }
+        Loader {
+          anchors.fill: parent
+          z: 10
+          active: root.anyWidgetEnabled
+          source: Qt.resolvedUrl("widgets/WidgetLayer.qml")
+          onLoaded: root.bindWidgetLayer(item, function() { return root.previewVisible })
+        }
       }
     }
 
@@ -1338,6 +1432,11 @@ Item {
       }
       return root.setSetting(key, parsed)
     }
+    function setWidget(name: string, patch: string): string {
+      var parsed = null
+      try { parsed = JSON.parse(patch) } catch (e) { return "bad-json" }
+      return root.setWidget(name, parsed)
+    }
     function setClockFormat(value: string): string {
       root.setTwelveHour(String(value) === "12" || String(value) === "true")
       return "ok"
@@ -1393,6 +1492,7 @@ Item {
     readonly property real wallpaperDim: root.wallpaperDim
     function designUsable(d) { return root.designUsable(d) }
     function setSetting(key, value) { return root.setSetting(key, value) }
+    function setWidget(name, patch) { return root.setWidget(name, patch) }
     function setDesign(id) { return root.setDesign(id) }
     function setTwelveHour(on) { root.setTwelveHour(on) }
     function setDisplayFont(family) { root.setDisplayFont(family) }
