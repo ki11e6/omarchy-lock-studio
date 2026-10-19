@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "ki11e6",
   "license": "MIT",
-  "description": "A lock screen for Omarchy built on Lock Designs' 66 designs, with your own name, avatar and lock wallpaper, configurable blanking, optional corner widgets (media, volume, weather, network, power, clock, avatar), a settings tab and a CLI.",
+  "description": "A lock screen for Omarchy built on Lock Designs' 66 designs, with your own name, avatar and lock wallpaper, and configurable blanking.",
   "kinds": [
     "service",
     "overlay"
