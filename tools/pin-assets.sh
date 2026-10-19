@@ -1,6 +1,7 @@
 #!/bin/bash
 # Pin every on-demand asset in designs/thirdparty-assets.json to one full
 # qylock commit and record a SHA-256 digest (and byte size) for each file.
+# The qylock URL is pinned wherever it sits, in `url` or in `mirrors`.
 #
 # The downloader in Service.qml refuses any catalog entry without a digest
 # and rejects any download whose digest does not match, so this is the one
@@ -31,7 +32,8 @@ mkdir -p "$CACHE"
 results="$(mktemp)"
 trap 'rm -f "$results"' EXIT
 
-# One line per file: design id, relative path, current url.
+# One line per file: design id, relative path, and the URL to pin from: the
+# qylock URL in `url` or `mirrors`, else `url`.
 total=$(jq -r '[.[] | .files[]] | length' "$CATALOG")
 n=0
 while IFS=$'\t' read -r id path url; do
@@ -51,18 +53,22 @@ while IFS=$'\t' read -r id path url; do
   sha=$(sha256sum "$target" | cut -d' ' -f1)
   size=$(stat -c%s "$target")
   printf '%s\t%s\t%s\t%s\t%s\n' "$id" "$path" "$pinned" "$sha" "$size" >> "$results"
-done < <(jq -r 'to_entries[] | .key as $id | .value.files[] | [$id, .path, .url] | @tsv' "$CATALOG")
+done < <(jq -r 'to_entries[] | .key as $id | .value.files[] | [$id, .path, ((([.url, (.mirrors // [])[]] | map(select(test("^https://raw\\.githubusercontent\\.com/Darkkal44/qylock/"))) | first)) // .url)] | @tsv' "$CATALOG")
 
 # Merge the results back into the catalog, keeping every other field and the
-# original key order.
+# original key order. The pinned URL replaces the qylock URL wherever it sits.
 merged=$(jq -Rs '
   split("\n") | map(select(length > 0) | split("\t"))
   | map({ key: (.[0] + "\t" + .[1]), value: { url: .[2], sha256: .[3], size: (.[4] | tonumber) } })
   | from_entries' "$results")
 
 jq --argjson m "$merged" --arg commit "$COMMIT" '
+  def qylock: test("^https://raw\\.githubusercontent\\.com/Darkkal44/qylock/");
   to_entries
-  | map(.key as $id | .value.files |= map(. + $m[$id + "\t" + .path]))
+  | map(.key as $id | .value.files |= map(. as $f | $m[$id + "\t" + $f.path] as $r
+      | $f + { sha256: $r.sha256, size: $r.size }
+      | if (.url | qylock) then .url = $r.url else . end
+      | if .mirrors then .mirrors |= map(if qylock then $r.url else . end) else . end))
   | from_entries' "$CATALOG" > "$CATALOG.tmp"
 mv -f "$CATALOG.tmp" "$CATALOG"
 

@@ -47,7 +47,7 @@ jobs:
             if [[ ! $size =~ ^[1-9][0-9]*$ ]]; then echo "::error::$id/$path: missing or malformed size"; bad=1; fi
             case $url in
               https://raw.githubusercontent.com/Darkkal44/qylock/[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]/*) ;;
-              https://github.com/SmoothPixels/lock-designs/releases/download/*/*) ;;
+              https://github.com/ki11e6/omarchy-lock-studio/releases/download/*/*) ;;
               *) echo "::error::$id/$path: URL is not pinned to a qylock commit or a release of this repository: $url"; bad=1 ;;
             esac
           done < <(jq -r 'to_entries[] | .key as $id | .value.assetsDir as $dir | .value.files[] | [$id, $dir, .path, .url, (.sha256 // ""), (.size // "" | tostring)] | @tsv' "$catalog")
@@ -67,7 +67,7 @@ jobs:
         run: |
           set -euo pipefail
           catalog=designs/thirdparty-assets.json
-          scratch="$RUNNER_TEMP/lock-designs"
+          scratch="$RUNNER_TEMP/lock-studio"
           mkdir -p "$scratch"
           while IFS=$'\t' read -r id dir path url; do
             dest="$scratch/$dir/$path"
