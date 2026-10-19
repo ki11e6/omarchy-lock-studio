@@ -41,6 +41,13 @@ Item {
   property bool videoPlaying: true
   property bool twelveHour: false
   property string displayFont: Style.font.family
+  property string displayName: ""
+  property bool wallpaperBlur: true
+  property real wallpaperDim: 0
+
+  // Not part of the design contract: the host draws the dim blank mode
+  // itself, over whatever design is live.
+  property bool dimmed: false
 
   signal submitPassword(string password)
   signal passwordTextEdited(string password)
@@ -70,7 +77,8 @@ Item {
       "fingerprintConfigured", "faceConfigured", "fido2Configured", "fido2Active",
       "fido2Authenticating", "fido2NeedsPin", "fido2Status", "authenticatingPassword",
       "failureMessage", "failedAttempts", "inputEnabled", "loadBackground", "passwordText",
-      "videoPath", "videoPlaying", "twelveHour", "displayFont"]
+      "videoPath", "videoPlaying", "twelveHour", "displayFont",
+      "displayName", "wallpaperBlur", "wallpaperDim"]
     names.forEach(function(name) {
       if (target[name] === undefined) return
       target[name] = Qt.binding(function() { return host[name] })
@@ -109,7 +117,7 @@ Item {
       bind(created)
       item = created
       var t1 = Date.now()
-      console.log("lock-designs timing: read " + (t0 - tStart) + " ms, compile+create " + (t1 - t0) + " ms, total " + (t1 - tStart) + " ms for " + livePath.split("/").pop())
+      console.log("lock-studio timing: read " + (t0 - tStart) + " ms, compile+create " + (t1 - t0) + " ms, total " + (t1 - tStart) + " ms for " + livePath.split("/").pop())
       if (!usingFallback) loadError = ""
       if (inputEnabled) Qt.callLater(forcePasswordFocus)
     } catch (e) {
@@ -124,7 +132,7 @@ Item {
   }
 
   function fail(detail) {
-    console.warn("lock-designs: design failed to load (" + livePath + "): " + detail)
+    console.warn("lock-studio: design failed to load (" + livePath + "): " + detail)
     if (!usingFallback) loadError = detail
     // One step down, never a loop: Classic failing too leaves the bare input.
     if (!usingFallback && fallbackPath.length > 0 && fallbackPath !== designPath) usingFallback = true
@@ -148,6 +156,12 @@ Item {
   Item {
     id: stage
     anchors.fill: parent
+  }
+
+  Rectangle {
+    anchors.fill: parent; z: 900; color: "black"
+    opacity: host.dimmed ? 0.85 : 0; visible: opacity > 0
+    Behavior on opacity { NumberAnimation { duration: 800; easing.type: Easing.InOutQuad } }
   }
 
   // Last line of defense, QtQuick only: still takes the password when both

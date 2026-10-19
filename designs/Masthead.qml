@@ -28,6 +28,7 @@ DesignBase {
     sourceSize.width: width
     sourceSize.height: height
   }
+  Rectangle { anchors.fill: parent; color: "black"; opacity: lock.wallpaperDim; visible: opacity > 0 }
 
   Rectangle {
     anchors.fill: parent

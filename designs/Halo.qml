@@ -50,11 +50,12 @@ DesignBase {
     anchors.fill: wallpaper
     source: wallpaper
     autoPaddingEnabled: false
-    blurEnabled: lock.loadBackground && wallpaper.status === Image.Ready
+    blurEnabled: lock.loadBackground && wallpaper.status === Image.Ready && lock.wallpaperBlur
     blur: 0.8
     blurMax: 96
     brightness: -0.1
   }
+  Rectangle { anchors.fill: parent; color: "black"; opacity: lock.wallpaperDim; visible: opacity > 0 }
 
   MouseArea {
     anchors.fill: parent

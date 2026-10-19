@@ -27,6 +27,7 @@ DesignBase {
     sourceSize.width: width
     sourceSize.height: height
   }
+  Rectangle { anchors.fill: parent; color: "black"; opacity: lock.wallpaperDim; visible: opacity > 0 }
   // Deeper toward the right, where the numerals sit, and along the bottom.
   Rectangle {
     anchors.fill: parent

@@ -9,7 +9,7 @@ import qs.Ui
 import "Bridge.js" as Bridge
 
 // The design picker. Summoned with
-//   omarchy-shell shell toggle io.github.smoothpixels.lock-designs '{}'
+//   omarchy-shell shell toggle io.github.ki11e6.lock-studio '{}'
 //
 // It never touches the lock: everything goes through the facade Service.qml
 // publishes on Bridge.js, because Omarchy hands the overlay of an
@@ -27,7 +27,7 @@ Item {
   property var service: null
   property bool opened: false
 
-  readonly property string pluginId: manifest && manifest.id ? String(manifest.id) : "io.github.smoothpixels.lock-designs"
+  readonly property string pluginId: manifest && manifest.id ? String(manifest.id) : "io.github.ki11e6.lock-studio"
   readonly property color background: Commons.Color.menu.background
   readonly property color foreground: Commons.Color.menu.text
   readonly property color muted: Util.alpha(foreground, 0.55)
@@ -190,7 +190,7 @@ Item {
     visible: root.opened
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
-    WlrLayershell.namespace: "omarchy-lock-designs"
+    WlrLayershell.namespace: "omarchy-lock-studio"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     exclusionMode: ExclusionMode.Ignore
@@ -264,7 +264,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             spacing: Style.space(2)
             Text {
-              text: "Lock Designs"
+              text: "Lock Studio"
               color: root.foreground
               font.family: root.fontFamily
               font.pixelSize: Style.font.display

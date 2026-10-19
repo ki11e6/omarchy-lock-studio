@@ -1,5 +1,5 @@
 #!/bin/bash
-# Checks every downloaded asset in ~/.config/omarchy/lock-designs against the
+# Checks every downloaded asset in ~/.config/omarchy/lock-studio against the
 # SHA-256 digests in the catalog. Files that are not downloaded are reported
 # as missing, not as failures; a mismatch is a failure and makes this exit 1.
 #
@@ -7,7 +7,7 @@
 set -euo pipefail
 
 PLUGIN_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-DESIGNS_DIR="${1:-$HOME/.config/omarchy/lock-designs}"
+DESIGNS_DIR="${1:-$HOME/.config/omarchy/lock-studio}"
 CATALOG="$DESIGNS_DIR/thirdparty-assets.json"
 [[ -f $CATALOG ]] || CATALOG="$PLUGIN_DIR/designs/thirdparty-assets.json"
 command -v jq >/dev/null || { echo "missing jq" >&2; exit 1; }

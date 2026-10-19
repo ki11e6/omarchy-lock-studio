@@ -8,10 +8,10 @@ import qs.Commons
 import qs.Commons as Commons
 import "Bridge.js" as Bridge
 
-// Lock Designs: the lock screen itself. A clone of Omarchy's omarchy.lock, so
+// Lock Studio: the lock screen itself. A clone of Omarchy's omarchy.lock, so
 // the session lock, the PAM password and fingerprint flows and display
 // blanking are the stock ones. What changes is that the lock surface shows
-// one of the designs in ~/.config/omarchy/lock-designs instead of a fixed
+// one of the designs in ~/.config/omarchy/lock-studio instead of a fixed
 // view, and this service also owns the design list, the saved selection, the
 // preview window, and the verified on-demand asset downloads that
 // Picker.qml drives.
@@ -22,7 +22,7 @@ Item {
   property var manifest: null
   property string omarchyPath: ""
 
-  readonly property string pluginId: manifest && manifest.id ? String(manifest.id) : "io.github.smoothpixels.lock-designs"
+  readonly property string pluginId: manifest && manifest.id ? String(manifest.id) : "io.github.ki11e6.lock-studio"
   readonly property string home: Quickshell.env("HOME")
   readonly property string userName: Quickshell.env("USER") || Quickshell.env("LOGNAME")
   readonly property string pluginDir: decodeURIComponent(Qt.resolvedUrl(".").toString().replace(/^file:\/\//, "").replace(/\/$/, ""))
@@ -30,7 +30,7 @@ Item {
   // Everything a design needs lives in one folder: the design files, the
   // base components they build on, previews, the asset catalog, downloaded
   // assets and this plugin's settings. Users drop their own designs in too.
-  readonly property string designsDir: home + "/.config/omarchy/lock-designs"
+  readonly property string designsDir: home + "/.config/omarchy/lock-studio"
   readonly property string previewsDir: designsDir + "/thirdparty-previews"
   readonly property string settingsPath: designsDir + "/settings.json"
   readonly property string catalogPath: designsDir + "/thirdparty-assets.json"
@@ -65,6 +65,7 @@ Item {
   property bool fingerprintConfigured: false
   property bool previewVisible: false
   property bool displayBlanked: false
+  property bool displayDimmed: false
   property string enteredPassword: ""
   property string pendingPassword: ""
   property string failureMessage: ""
@@ -129,13 +130,20 @@ Item {
     beginLock()
   }
 
-  function refreshBackground() { if (!readlinkProc.running) readlinkProc.running = true }
+  // A wallpaper chosen in the settings wins over Omarchy's background; a
+  // path that no longer resolves falls back to it.
+  function refreshBackground() {
+    if (wallpaperSetting.length > 0) { if (!wallpaperProc.running) wallpaperProc.running = true }
+    else if (!readlinkProc.running) readlinkProc.running = true
+  }
+  function refreshAvatar() { if (!avatarProc.running) avatarProc.running = true }
+  function expandHome(p) { return String(p || "").replace(/^~(?=\/|$)/, home) }
   function refreshFingerprintStatus() { if (!fingerprintCheckProc.running) fingerprintCheckProc.running = true }
 
   function logEvent(event) {
     lastEvent = event
     lastEventAt = new Date().toISOString()
-    console.log("lock-designs " + lastEventAt + " " + event)
+    console.log("lock-studio " + lastEventAt + " " + event)
   }
 
   function resetAuthenticationState() {
@@ -160,6 +168,7 @@ Item {
     queueSessionLock()
     Qt.callLater(function() {
       root.refreshBackground()
+      root.refreshAvatar()
       root.refreshFingerprintStatus()
     })
     return true
@@ -179,18 +188,22 @@ Item {
   }
 
   function armBlankTimer() {
+    if (blankMode === "never") { idleBlankTimer.stop(); return }
     idleBlankTimer.armedAt = Date.now()
     idleBlankTimer.restart()
   }
 
   function runWake() {
     displayBlanked = false
+    displayDimmed = false
     if (!wakeProcess.running) wakeProcess.running = true
     if (lockRequested) armBlankTimer()
   }
 
+  // "dim" keeps the panel on and only darkens the lock surface.
   function runBlank() {
     displayBlanked = true
+    if (blankMode === "dim") { displayDimmed = true; return }
     if (!blankProcess.running) blankProcess.running = true
   }
 
@@ -274,6 +287,18 @@ Item {
   // Empty means "follow the theme font".
   readonly property string fontSetting: settings && settings.font ? String(settings.font) : ""
   readonly property string displayFont: fontSetting.length > 0 ? fontSetting : Style.font.family
+  // Personal settings; `settings` is always normalized, so these only pick
+  // the default when a key is absent.
+  readonly property string displayName: settings && settings.displayName ? String(settings.displayName) : ""
+  readonly property string avatarSetting: settings && settings.avatar ? String(settings.avatar) : ""
+  readonly property string wallpaperSetting: settings && settings.wallpaper ? String(settings.wallpaper) : ""
+  readonly property bool wallpaperBlur: !settings || settings.wallpaperBlur !== false
+  readonly property real wallpaperDim: settings && settings.wallpaperDim > 0 ? Number(settings.wallpaperDim) : 0
+  readonly property string blankMode: settings && settings.blankMode ? String(settings.blankMode) : "off"
+  readonly property int blankDelay: settings && settings.blankDelay > 0 ? Number(settings.blankDelay) : 5
+  readonly property int blankDelayMs: blankDelay * 1000
+  onAvatarSettingChanged: refreshAvatar()
+  onWallpaperSettingChanged: refreshBackground()
   readonly property var activeDesign: {
     var d = designById(selectedDesignId)
     if (!designUsable(d)) d = designById(defaultDesignId)
@@ -282,20 +307,78 @@ Item {
   readonly property string activeDesignId: activeDesign ? activeDesign.id : ""
   readonly property string activeDesignPath: activeDesign ? activeDesign.path : fallbackDesignPath
 
-  // Runs after each of the three async loads (sync, settings, shell.json);
-  // whichever lands last completes the adoption.
+  // lock-designs' own settings, read once so switching from it keeps the
+  // design, clock format and font.
+  property var lockDesignsSettings: null
+  property bool lockDesignsChecked: false
+
+  // Runs after each of the async loads (sync, settings, lock-designs'
+  // settings, shell.json); whichever lands last completes the adoption.
+  // lock-designs wins over the older lock-explorer entry in shell.json.
   function adoptLegacyDesign() {
-    if (!synced || !settingsLoaded || legacyDesignId.length === 0) return
+    if (!synced || !settingsLoaded || !lockDesignsChecked) return
     if (settings && settings.design) return
+    var ld = lockDesignsSettings
+    if (ld && ld.design && designById(String(ld.design))) {
+      var patch = { design: String(ld.design) }
+      if (ld.twelveHour === true) patch.twelveHour = true
+      if (ld.font) patch.font = String(ld.font)
+      saveSettings(patch)
+      logEvent("adopted-lock-designs: " + patch.design)
+      return
+    }
+    if (legacyDesignId.length === 0) return
     if (!designById(legacyDesignId)) return
     saveSettings({ design: legacyDesignId })
     logEvent("adopted-design: " + legacyDesignId)
+  }
+
+  // Every key the settings UI, IPC and CLI may write, with its default.
+  readonly property var settingDefaults: ({
+    displayName: "", avatar: "", wallpaper: "", wallpaperBlur: true,
+    wallpaperDim: 0, blankMode: "off", blankDelay: 5
+  })
+
+  function clampNumber(v, lo, hi, fallback) {
+    if (typeof v !== "number" && typeof v !== "string") return fallback
+    var n = Number(v)
+    if (String(v).trim().length === 0 || !isFinite(n)) return fallback
+    return Math.min(hi, Math.max(lo, n))
+  }
+
+  // The one place that decides what a setting may hold. Unknown keys pass
+  // through; a known key with a bad value falls back to its default.
+  function normalizeSettings(obj) {
+    var src = obj && typeof obj === "object" && !Array.isArray(obj) ? obj : {}
+    var out = {}
+    for (var k in src) out[k] = src[k]
+    var d = settingDefaults
+    if ("displayName" in out) out.displayName = typeof out.displayName === "string" ? out.displayName.trim() : d.displayName
+    if ("avatar" in out) out.avatar = typeof out.avatar === "string" ? out.avatar.trim() : d.avatar
+    if ("wallpaper" in out) out.wallpaper = typeof out.wallpaper === "string" ? out.wallpaper.trim() : d.wallpaper
+    if ("wallpaperBlur" in out) out.wallpaperBlur = typeof out.wallpaperBlur === "boolean" ? out.wallpaperBlur : d.wallpaperBlur
+    if ("wallpaperDim" in out) out.wallpaperDim = clampNumber(out.wallpaperDim, 0, 1, d.wallpaperDim)
+    if ("blankMode" in out) out.blankMode = ["off", "dim", "never"].indexOf(out.blankMode) !== -1 ? out.blankMode : d.blankMode
+    if ("blankDelay" in out) out.blankDelay = Math.round(clampNumber(out.blankDelay, 1, 300, d.blankDelay))
+    if ("twelveHour" in out) out.twelveHour = out.twelveHour === true
+    if ("font" in out) out.font = typeof out.font === "string" ? out.font : ""
+    return out
+  }
+
+  function setSetting(key, value) {
+    var k = String(key || "")
+    if (!(k in settingDefaults) && k !== "twelveHour" && k !== "font") return "unknown-key"
+    var patch = {}
+    patch[k] = value
+    saveSettings(patch)
+    return "ok"
   }
 
   function saveSettings(patch) {
     var next = {}
     for (var k in settings) next[k] = settings[k]
     for (var p in patch) next[p] = patch[p]
+    next = normalizeSettings(next)
     settings = next
     if (!synced) return
     settingsFile.setText(JSON.stringify(next, null, 2) + "\n")
@@ -424,7 +507,7 @@ Item {
     fetchProc.currentId = id
     fetchProc.cancelled = false
     fetchProc.lastError = ""
-    fetchProc.command = ["bash", "-c", root.fetchScript, "lock-designs-fetch", dest, String(f.sha256).toLowerCase()].concat(urls)
+    fetchProc.command = ["bash", "-c", root.fetchScript, "lock-studio-fetch", dest, String(f.sha256).toLowerCase()].concat(urls)
     fetchProc.running = true
   }
 
@@ -510,6 +593,7 @@ Item {
     previewScreen = chosen || focusedScreen()
     previewDesignId = String(id || "")
     refreshBackground()
+    refreshAvatar()
     refreshFingerprintStatus()
     previewVisible = true
   }
@@ -583,6 +667,12 @@ Item {
         videoPlaying: !root.displayBlanked
         twelveHour: root.twelveHour
         displayFont: root.displayFont
+        avatarPath: root.avatarPath
+        avatarVersion: root.avatarVersion
+        displayName: root.displayName
+        wallpaperBlur: root.wallpaperBlur
+        wallpaperDim: root.wallpaperDim
+        dimmed: root.displayDimmed
         onPasswordTextEdited: function(password) { root.enteredPassword = password }
         onSubmitPassword: function(password) { root.submitPassword(password) }
         onClearFailureRequested: root.failureMessage = ""
@@ -597,7 +687,7 @@ Item {
     visible: root.previewVisible
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
-    WlrLayershell.namespace: "omarchy-lock-preview"
+    WlrLayershell.namespace: "omarchy-lock-studio-preview"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
     exclusionMode: ExclusionMode.Ignore
@@ -618,6 +708,11 @@ Item {
         videoPlaying: root.previewVisible
         twelveHour: root.twelveHour
         displayFont: root.displayFont
+        avatarPath: root.avatarPath
+        avatarVersion: root.avatarVersion
+        displayName: root.displayName
+        wallpaperBlur: root.wallpaperBlur
+        wallpaperDim: root.wallpaperDim
       }
     }
 
@@ -748,6 +843,40 @@ Item {
   }
 
   Process {
+    id: wallpaperProc
+    command: ["realpath", "-e", "--", root.expandHome(root.wallpaperSetting)]
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: {
+        var next = String(text || "").trim()
+        if (next.length === 0) { if (!readlinkProc.running) readlinkProc.running = true; return }
+        if (next !== root.backgroundPath) {
+          root.backgroundPath = next
+          root.backgroundVersion += 1
+        }
+      }
+    }
+  }
+
+  // First readable of: the configured avatar, AccountsService's icon,
+  // ~/.face, ~/.face.icon. Nothing found leaves designs on the initial.
+  property string avatarPath: ""
+  property int avatarVersion: 0
+  Process {
+    id: avatarProc
+    command: ["bash", "-c", "for f; do [ -r \"$f\" ] && { realpath -e -- \"$f\"; exit 0; }; done; exit 1",
+      "lock-studio-avatar", root.expandHome(root.avatarSetting),
+      "/var/lib/AccountsService/icons/" + root.userName, root.home + "/.face", root.home + "/.face.icon"]
+    stdout: StdioCollector {
+      waitForEnd: true
+      onStreamFinished: {
+        var next = String(text || "").trim()
+        if (next !== root.avatarPath) { root.avatarPath = next; root.avatarVersion += 1 }
+      }
+    }
+  }
+
+  Process {
     id: fingerprintCheckProc
     command: ["bash", "-c", "if [[ -f /etc/pam.d/omarchy-lock-fingerprint ]] && command -v fprintd-list >/dev/null 2>&1 && fprintd-list \"$USER\" 2>/dev/null | grep -qi finger; then echo yes; else echo no; fi"]
     stdout: StdioCollector { id: fingerprintCheckStdout; waitForEnd: true }
@@ -785,11 +914,11 @@ Item {
   // cheap; nothing else in that folder is deleted.
   Process {
     id: syncProc
-    command: ["bash", "-c", "set -e; mkdir -p \"$1\"; rsync -a --exclude settings.json \"$0/designs/\" \"$1/\"", root.pluginDir, root.designsDir]
-    stderr: StdioCollector { onStreamFinished: if (text) console.warn("lock-designs sync:", String(text).trim()) }
+    command: ["bash", "-c", root.syncScript, root.pluginDir, root.designsDir]
+    stderr: StdioCollector { onStreamFinished: if (text) console.warn("lock-studio sync:", String(text).trim()) }
     onExited: function(exitCode) {
       root.synced = true
-      if (exitCode !== 0) console.warn("lock-designs: syncing designs into " + root.designsDir + " failed (" + exitCode + ")")
+      if (exitCode !== 0) console.warn("lock-studio: syncing designs into " + root.designsDir + " failed (" + exitCode + ")")
       root.rescanDesigns()
       catalogFile.reload()
       settingsFile.reload()
@@ -797,13 +926,25 @@ Item {
     }
   }
 
+  // Asset folders lock-designs already downloaded (and verified) are copied
+  // over once, never overwriting, so switching doesn't mean downloading again.
+  readonly property string syncScript: '
+    set -e
+    mkdir -p "$1"
+    rsync -a --exclude settings.json "$0/designs/" "$1/"
+    old="$HOME/.config/omarchy/lock-designs"
+    for d in "$old"/*-assets; do
+      if [ -d "$d" ] && [ ! -e "$1/$(basename "$d")" ]; then cp -a --reflink=auto -- "$d" "$1/"; fi
+    done
+  '
+
   // Every *.qml in designsDir whose root is a DesignBase is a design. Marker
   // comments in the first lines describe it: `// source: qylock` puts it in
   // the third-party group, `// timebased: true` flags it, `// name:` and
   // `// description:` override the name derived from the file name.
   Process {
     id: scanProc
-    command: ["bash", "-c", root.scanScript, "lock-designs-scan", root.designsDir, root.pluginDir]
+    command: ["bash", "-c", root.scanScript, "lock-studio-scan", root.designsDir, root.pluginDir]
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: {
@@ -919,7 +1060,7 @@ Item {
         var i = root.downloadQueue.indexOf(id)
         if (i !== -1) root.downloadQueue.splice(i, 1)
         root.patchDownload(id, { phase: "failed", error: fetchProc.lastError || "Download failed" })
-        console.warn("lock-designs: assets for " + id + " failed: " + (fetchProc.lastError || "exit " + exitCode))
+        console.warn("lock-studio: assets for " + id + " failed: " + (fetchProc.lastError || "exit " + exitCode))
         root.pumpDownloads()
         return
       }
@@ -949,9 +1090,9 @@ Item {
     onLoaded: {
       try {
         var parsed = JSON.parse(String(text() || "") || "{}")
-        root.settings = parsed && typeof parsed === "object" ? parsed : {}
+        root.settings = root.normalizeSettings(parsed)
       } catch (e) {
-        console.warn("lock-designs: settings.json is not valid JSON, keeping the last known settings")
+        console.warn("lock-studio: settings.json is not valid JSON, keeping the last known settings")
       }
       root.settingsLoaded = true
       Qt.callLater(root.adoptLegacyDesign)
@@ -973,6 +1114,23 @@ Item {
       root.scanInstalled()
     }
     onLoadFailed: root.catalog = {}
+  }
+
+  FileView {
+    path: root.home + "/.config/omarchy/lock-designs/settings.json"
+    printErrors: false
+    onLoaded: {
+      try {
+        var parsed = JSON.parse(String(text() || "") || "{}")
+        root.lockDesignsSettings = parsed && typeof parsed === "object" ? parsed : null
+      } catch (e) {}
+      root.lockDesignsChecked = true
+      Qt.callLater(root.adoptLegacyDesign)
+    }
+    onLoadFailed: {
+      root.lockDesignsChecked = true
+      Qt.callLater(root.adoptLegacyDesign)
+    }
   }
 
   FileView {
@@ -1009,7 +1167,7 @@ Item {
   // ---------------------------------------------------------------------
   Timer {
     id: idleBlankTimer
-    interval: 5000
+    interval: root.blankDelayMs
     repeat: false
     property double armedAt: 0
     onTriggered: {
@@ -1139,6 +1297,15 @@ Item {
     function removeAssets(id: string): string { return root.removeAssets(id) }
     function font(): string { return root.displayFont }
     function setFont(family: string): string { root.setDisplayFont(family); return "ok" }
+    // String settings take the value as typed; the others parse it as JSON
+    // (numbers, true/false), falling back to the plain string.
+    function setSetting(key: string, value: string): string {
+      var parsed = value
+      if (typeof root.settingDefaults[key] !== "string") {
+        try { parsed = JSON.parse(value) } catch (e) {}
+      }
+      return root.setSetting(key, parsed)
+    }
     function setClockFormat(value: string): string {
       root.setTwelveHour(String(value) === "12" || String(value) === "true")
       return "ok"
@@ -1187,7 +1354,13 @@ Item {
     readonly property string themeName: root.themeName
     readonly property bool previewVisible: root.previewVisible
     readonly property bool locked: root.locked
+    readonly property string avatarPath: root.avatarPath
+    readonly property int avatarVersion: root.avatarVersion
+    readonly property string displayName: root.displayName
+    readonly property bool wallpaperBlur: root.wallpaperBlur
+    readonly property real wallpaperDim: root.wallpaperDim
     function designUsable(d) { return root.designUsable(d) }
+    function setSetting(key, value) { return root.setSetting(key, value) }
     function setDesign(id) { return root.setDesign(id) }
     function setTwelveHour(on) { root.setTwelveHour(on) }
     function setDisplayFont(family) { root.setDisplayFont(family) }
@@ -1228,6 +1401,7 @@ Item {
   Component.onCompleted: {
     Bridge.publish(facade)
     refreshBackground()
+    refreshAvatar()
     refreshFingerprintStatus()
     checkStrandedLock()
     syncProc.running = true

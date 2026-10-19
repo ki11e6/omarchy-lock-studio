@@ -1,6 +1,6 @@
 #!/bin/bash
-# Opt-in: adds (or refreshes) a "Style > Lock Designs" row in the Omarchy menu
-# that opens the Lock Designs picker, by splicing
+# Opt-in: adds (or refreshes) a "Style > Lock Studio" row in the Omarchy menu
+# that opens the Lock Studio picker, by splicing
 # extensions/omarchy-menu.snippet.jsonc into your own
 # ~/.config/omarchy/extensions/omarchy-menu.jsonc. Nothing in the plugin runs
 # this for you; run it yourself, and again after an update if the snippet
@@ -72,8 +72,8 @@ mv "$tmp" "$TARGET"
 trap - EXIT
 
 if (( REMOVE )); then
-  echo "Removed the Style > Lock Designs row from $TARGET"
+  echo "Removed the Style > Lock Studio row from $TARGET"
 else
-  echo "Added Style > Lock Designs to $TARGET"
+  echo "Added Style > Lock Studio to $TARGET"
 fi
 echo "The shell watches this file, so the menu should update within a second or two."
