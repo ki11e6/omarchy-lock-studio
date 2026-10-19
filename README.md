@@ -22,13 +22,13 @@ Only one lock screen plugin can be active at a time, so disable any other lock p
 omarchy-shell lock explore
 ```
 
-Bind that command to a key in your Hyprland bindings, or add a **Style > Lock Designs** row to the Omarchy menu with the bundled, opt-in script (run it again after an update if the snippet changes):
+Bind that command to a key in your Hyprland bindings, or add a **Style > Lock Studio** row to the Omarchy menu with the bundled, opt-in script (run it again after an update if the snippet changes):
 
 ```sh
-~/.config/omarchy/plugins/io.github.smoothpixels.lock-designs/tools/install-menu-entries.sh
+~/.config/omarchy/plugins/io.github.ki11e6.lock-studio/tools/install-menu-entries.sh
 ```
 
-Nothing outside `~/.config/omarchy/lock-designs/` is written. No sudo.
+Nothing outside `~/.config/omarchy/lock-studio/` is written. No sudo.
 
 ## The picker
 
@@ -72,7 +72,7 @@ Every design with a video, image or font fetches it on demand, so a clone of thi
 
 The downloader fetches each file to a `.part` file, hashes it, and only moves it into place when the digest matches. A catalog entry without a digest is refused outright, and a mismatch is reported on the card and the file discarded. Optional `mirrors` are tried in order after `url`; the digest has to match whichever source answered, so a mirror can never weaken the check. The only network access this plugin ever makes is these downloads, and only when you ask for one.
 
-Downloaded assets live in `~/.config/omarchy/lock-designs/<design>-assets/`. The 7 wallsflow videos are served from the `media-1` release of this repository, because wallsflow's own CDN blocks scripted downloads and offers nothing that could be pinned; their digests sit in the same catalog and go through the same check.
+Downloaded assets live in `~/.config/omarchy/lock-studio/<design>-assets/`. The 7 wallsflow videos are served from the `media-1` release of this repository, because wallsflow's own CDN blocks scripted downloads and offers nothing that could be pinned; their digests sit in the same catalog and go through the same check.
 
 Maintainer tools:
 
@@ -86,7 +86,7 @@ A GitHub Actions workflow (`.github/workflows/catalog.yml`) checks on every chan
 
 ## Settings and commands
 
-Settings are kept in `~/.config/omarchy/lock-designs/settings.json`:
+Settings are kept in `~/.config/omarchy/lock-studio/settings.json`:
 
 | Key | Meaning |
 |---|---|
@@ -98,7 +98,7 @@ Everything the picker does is also reachable from the command line through the s
 
 ```sh
 omarchy-shell lock explore                   # open or close the picker
-omarchy-shell shell toggle io.github.smoothpixels.lock-designs '{"screen":"DP-2"}'   # the picker on a named monitor
+omarchy-shell shell toggle io.github.ki11e6.lock-studio '{"screen":"DP-2"}'   # the picker on a named monitor
 omarchy-shell lock designs                   # JSON list with ids, names and readiness
 omarchy-shell lock design                    # id of the design in use
 omarchy-shell lock setDesign my-forest
@@ -120,17 +120,17 @@ Locking is as quick as the stock lock: a design compiles and instantiates in a f
 If you added the menu row, drop it with:
 
 ```sh
-~/.config/omarchy/plugins/io.github.smoothpixels.lock-designs/tools/install-menu-entries.sh --remove
+~/.config/omarchy/plugins/io.github.ki11e6.lock-studio/tools/install-menu-entries.sh --remove
 ```
 
 Then remove the plugin and hand the lock back to Omarchy:
 
 ```sh
-omarchy plugin remove io.github.smoothpixels.lock-designs
+omarchy plugin remove io.github.ki11e6.lock-studio
 omarchy plugin enable omarchy.lock
 ```
 
-The second line matters: removing the active clone leaves the stock lock disabled until you enable it again. Files already copied into `~/.config/omarchy/lock-designs/` are left in place, including downloaded assets and any designs of your own; delete the folder yourself if you want it gone.
+The second line matters: removing the active clone leaves the stock lock disabled until you enable it again. Files already copied into `~/.config/omarchy/lock-studio/` are left in place, including downloaded assets and any designs of your own; delete the folder yourself if you want it gone.
 
 ## Gallery
 
@@ -250,7 +250,7 @@ The design components (`DesignBase`, `PasswordField`, `LockInput`, `Avatar`) and
 
 Changes by version are in [CHANGELOG.md](CHANGELOG.md).
 
-Designs are plain QML files in `designs/`, each with a `DesignBase` root. They sit next to `DesignBase.qml`, `PasswordField.qml`, `LockInput.qml` and `Avatar.qml`, so no import line is needed. The service mirrors that folder into `~/.config/omarchy/lock-designs/` on every shell start, and a design dropped straight into that folder shows up in the picker too.
+Designs are plain QML files in `designs/`, each with a `DesignBase` root. They sit next to `DesignBase.qml`, `PasswordField.qml`, `LockInput.qml` and `Avatar.qml`, so no import line is needed. The service mirrors that folder into `~/.config/omarchy/lock-studio/` on every shell start, and a design dropped straight into that folder shows up in the picker too.
 
 Originals draw text in `lock.displayFont` (the user's Font choice, defaulting to the theme font) and give large clocks `renderType: Text.CurveRendering` so they stay sharp at any size. For depth they shade the theme background with `lock.deepen(color, factor)`, which darkens on dark themes and lightens on light ones so panels always move away from the text color, and `lock.raise()` for the opposite; plain `Qt.darker` is kept only for things that are dark on any theme, such as shadows and silhouettes. Marker comments in the first lines of a file describe it to the picker:
 
@@ -266,11 +266,11 @@ A design that fetches assets needs an entry in `designs/thirdparty-assets.json`;
 Validate before publishing:
 
 ```sh
-omarchy plugin validate ~/.config/omarchy/plugins/io.github.smoothpixels.lock-designs
+omarchy plugin validate ~/.config/omarchy/plugins/io.github.ki11e6.lock-studio
 /usr/lib/qt6/bin/qmllint -I /usr/share/omarchy/shell -I /usr/lib/qt6/qml Service.qml LockHost.qml Picker.qml designs/*.qml
 tools/verify-assets.sh
 ```
 
-If a lock screen change ever leaves you unable to unlock, switch to a TTY (Ctrl+Alt+F3), log in, and run `omarchy plugin disable io.github.smoothpixels.lock-designs && omarchy plugin enable omarchy.lock`, then `omarchy restart shell`.
+If a lock screen change ever leaves you unable to unlock, switch to a TTY (Ctrl+Alt+F3), log in, and run `omarchy plugin disable io.github.ki11e6.lock-studio && omarchy plugin enable omarchy.lock`, then `omarchy restart shell`.
 
 See [NOTICE.md](NOTICE.md) for the full licensing picture.
