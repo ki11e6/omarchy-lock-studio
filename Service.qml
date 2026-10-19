@@ -149,7 +149,7 @@ Item {
   }
   function refreshAvatar() {
     if (avatarProc.running) { avatarRefreshPending = true; return }
-    avatarProc.command = ["bash", "-c", "for f; do [ -f \"$f\" ] && [ -r \"$f\" ] && { realpath -e -- \"$f\"; exit 0; }; done; exit 1",
+    avatarProc.command = ["bash", "-c", "for f; do [ -f \"$f\" ] && [ -r \"$f\" ] && { p=$(realpath -e -- \"$f\") && printf '%s\\t%s\\n' \"$p\" \"$(stat -c %Y -- \"$p\")\"; exit 0; }; done; exit 1",
       "lock-studio-avatar", expandHome(avatarSetting),
       "/var/lib/AccountsService/icons/" + userName, home + "/.face", home + "/.face.icon"]
     avatarProc.running = true
@@ -442,10 +442,20 @@ Item {
     return "ok"
   }
 
+  // A value of the wrong type, or outside an enum, is refused rather than
+  // quietly stored as the default; numbers out of range are still clamped.
+  function settingValueValid(k, v) {
+    if (k === "blankMode") return ["off", "dim", "never"].indexOf(v) !== -1
+    if (k === "wallpaperBlur" || k === "twelveHour") return typeof v === "boolean"
+    if (k === "wallpaperDim" || k === "blankDelay") return clampNumber(v, -Infinity, Infinity, null) !== null
+    return typeof v === "string"
+  }
+
   function setSetting(key, value) {
     var k = String(key || "")
     // hasOwnProperty, not `in`: `in` also accepts prototype names like "toString".
     if (!Object.prototype.hasOwnProperty.call(settingDefaults, k) && k !== "twelveHour" && k !== "font") return "unknown-key"
+    if (!settingValueValid(k, value)) return "invalid-value"
     var patch = {}
     patch[k] = value
     saveSettings(patch)
@@ -456,11 +466,62 @@ Item {
     var next = {}
     for (var k in settings) next[k] = settings[k]
     for (var p in patch) next[p] = patch[p]
-    next = normalizeSettings(next)
+    writeSettings(next)
+  }
+
+  function writeSettings(obj) {
+    var next = normalizeSettings(obj)
     settings = next
     if (!synced) return
     settingsFile.setText(JSON.stringify(next, null, 2) + "\n")
   }
+
+  // Back to defaults, keeping the choices lock-designs also had.
+  function resetSettings() {
+    var keep = {}
+    var names = ["design", "twelveHour", "font"]
+    for (var i = 0; i < names.length; i++) if (names[i] in settings) keep[names[i]] = settings[names[i]]
+    writeSettings(keep)
+  }
+
+  // Every setting with its default filled in, as the CLI and IPC show it.
+  function effectiveSettings() {
+    var out = {}
+    for (var k in settingDefaults) out[k] = settingDefaults[k]
+    out.twelveHour = false
+    out.font = ""
+    for (var s in settings) out[s] = settings[s]
+    out.widgets = widgetSettings
+    return out
+  }
+
+  // An avatar from a URL the user typed: https only, with fetch-image.sh's
+  // size cap and magic-number check, but no host allowlist. Each download
+  // gets a fresh name so the designs' `?v=` cache key changes with it.
+  property string avatarDownloadStatus: ""
+  function downloadAvatar(url) {
+    var u = String(url || "").trim()
+    if (!/^https:\/\/[^\s]+$/.test(u)) { avatarDownloadStatus = "failed"; return "bad-url" }
+    if (avatarDownloadProc.running) return "busy"
+    avatarDownloadStatus = "downloading"
+    avatarDownloadProc.command = ["bash", "-c", root.avatarDownloadScript, "lock-studio-avatar-download",
+      pluginDir + "/widgets/fetch-image.sh", designsDir, String(Date.now()), u]
+    avatarDownloadProc.running = true
+    return "ok"
+  }
+
+  readonly property string avatarDownloadScript: '
+    fetch="$1"; dir="$2"; dest="$2/avatar-$3"; url="$4"
+    /usr/bin/bash "$fetch" "$url" "$dest.part" || exit 1
+    sig=$(od -An -v -tx1 -N4 "$dest.part" | tr -d " \\n")
+    case "$sig" in
+      ffd8ff*) ext=jpg ;; 89504e47) ext=png ;; 47494638) ext=gif ;; 424d*) ext=bmp ;; 52494646) ext=webp ;;
+      *) rm -f -- "$dest.part"; exit 1 ;;
+    esac
+    mv -fT -- "$dest.part" "$dest.$ext" || exit 1
+    for f in "$dir"/avatar-*.{png,jpg,gif,webp,bmp,part}; do [ "$f" = "$dest.$ext" ] || rm -f -- "$f"; done
+    printf "%s\\n" "$dest.$ext"
+  '
 
   function setDesign(id) {
     var d = designById(id)
@@ -989,8 +1050,11 @@ Item {
 
   // First readable file of: the configured avatar, AccountsService's icon,
   // ~/.face, ~/.face.icon. Nothing found leaves designs on the initial.
+  // The version also follows the file's mtime, so a picture replaced in
+  // place (a new ~/.face) shows up instead of the cached one.
   property string avatarPath: ""
   property int avatarVersion: 0
+  property string avatarStamp: ""
   Process {
     id: avatarProc
     onExited: {
@@ -1001,8 +1065,11 @@ Item {
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: {
-        var next = String(text || "").trim()
-        if (next !== root.avatarPath) { root.avatarPath = next; root.avatarVersion += 1 }
+        var line = String(text || "").trim()
+        if (line === root.avatarStamp) return
+        root.avatarStamp = line
+        root.avatarPath = line.split("\t")[0]
+        root.avatarVersion += 1
       }
     }
   }
@@ -1212,6 +1279,18 @@ Item {
   Process {
     id: removeAssetsProc
     onExited: root.scanInstalled()
+  }
+
+  Process {
+    id: avatarDownloadProc
+    stdout: StdioCollector { id: avatarDownloadStdout; waitForEnd: true }
+    onExited: function(exitCode) {
+      var saved = String(avatarDownloadStdout.text || "").trim()
+      if (exitCode === 0 && saved.length > 0) {
+        root.setSetting("avatar", saved)
+        root.avatarDownloadStatus = "ok"
+      } else root.avatarDownloadStatus = "failed"
+    }
   }
 
   // ---------------------------------------------------------------------
@@ -1442,6 +1521,8 @@ Item {
       }
       return root.setSetting(key, parsed)
     }
+    function settings(): string { return JSON.stringify(root.effectiveSettings()) }
+    function resetSettings(): string { root.resetSettings(); return "ok" }
     function setWidget(name: string, patch: string): string {
       var parsed = null
       try { parsed = JSON.parse(patch) } catch (e) { return "bad-json" }
@@ -1500,7 +1581,16 @@ Item {
     readonly property string displayName: root.displayName
     readonly property bool wallpaperBlur: root.wallpaperBlur
     readonly property real wallpaperDim: root.wallpaperDim
+    readonly property var settings: root.settings
+    readonly property var widgetSettings: root.widgetSettings
+    readonly property string blankMode: root.blankMode
+    readonly property int blankDelay: root.blankDelay
+    readonly property string avatarDownloadStatus: root.avatarDownloadStatus
+    // Resolved here, as a file:// URL: from the picker it resolves under
+    // qs://, where widgets/ can't see its own WidgetCard type.
+    readonly property url widgetLayerUrl: Qt.resolvedUrl("widgets/WidgetLayer.qml")
     function designUsable(d) { return root.designUsable(d) }
+    function downloadAvatar(url) { return root.downloadAvatar(url) }
     function setSetting(key, value) { return root.setSetting(key, value) }
     function setWidget(name, patch) { return root.setWidget(name, patch) }
     function setDesign(id) { return root.setDesign(id) }

@@ -73,6 +73,7 @@ Item {
       if (p && typeof p.screen === "string") root.targetScreen = screenNamed(p.screen) || root.targetScreen
     } catch (e) {}
     if (root.service) root.service.rescanDesigns()
+    root.tab = "designs"
     root.opened = true
     Qt.callLater(function() { keys.forceActiveFocus() })
   }
@@ -85,6 +86,8 @@ Item {
   }
 
   // ---- view state -------------------------------------------------------
+  // "designs" or "settings".
+  property string tab: "designs"
   property string query: ""
   property string filter: "all"
   property int currentIndex: 0
@@ -191,8 +194,9 @@ Item {
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
     WlrLayershell.namespace: "omarchy-lock-studio"
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    // Steps back while zenity's file chooser is up, so it shows in front.
+    WlrLayershell.layer: settingsTab.browsing ? WlrLayer.Bottom : WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: settingsTab.browsing ? WlrKeyboardFocus.None : WlrKeyboardFocus.Exclusive
     exclusionMode: ExclusionMode.Ignore
 
     Rectangle {
@@ -229,6 +233,14 @@ Item {
         Keys.onPressed: function(event) {
           var ctrl = (event.modifiers & Qt.ControlModifier) !== 0
           if (event.key === Qt.Key_Escape) { root.dismiss(); event.accepted = true; return }
+          if (ctrl && (event.key === Qt.Key_Tab || event.key === Qt.Key_Backtab)) {
+            root.tab = root.tab === "designs" ? "settings" : "designs"
+            keys.forceActiveFocus()
+            event.accepted = true
+            return
+          }
+          // The Settings tab has its own fields; nothing else is routed there.
+          if (root.tab !== "designs") return
           if (event.key === Qt.Key_Left) { root.move(-1); event.accepted = true; return }
           if (event.key === Qt.Key_Right) { root.move(1); event.accepted = true; return }
           if (event.key === Qt.Key_Up) { root.move(-grid.columns); event.accepted = true; return }
@@ -260,6 +272,7 @@ Item {
           height: Style.space(44)
 
           Column {
+            id: titleBlock
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
             spacing: Style.space(2)
@@ -278,6 +291,43 @@ Item {
               color: root.muted
               font.family: root.fontFamily
               font.pixelSize: Style.font.caption
+            }
+          }
+
+          // Tab switcher, styled like the filter chips.
+          Row {
+            anchors.left: titleBlock.right
+            anchors.leftMargin: Style.space(28)
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Style.spacing.controlGap
+
+            Repeater {
+              model: [
+                { id: "designs", label: "Designs" },
+                { id: "settings", label: "Settings" }
+              ]
+              delegate: Item {
+                id: tabCell
+                required property var modelData
+                readonly property bool current: root.tab === modelData.id
+                width: tabButton.implicitWidth
+                height: tabButton.implicitHeight
+                Rectangle {
+                  anchors.fill: parent
+                  radius: tabButton.radius
+                  color: root.accent
+                  visible: tabCell.current
+                }
+                Button {
+                  id: tabButton
+                  text: tabCell.modelData.label
+                  tooltipText: "Ctrl+Tab switches tabs"
+                  foreground: tabCell.current ? root.background : root.foreground
+                  accent: root.accent
+                  fontFamily: root.fontFamily
+                  onClicked: { root.tab = tabCell.modelData.id; keys.forceActiveFocus() }
+                }
+              }
             }
           }
 
@@ -318,6 +368,7 @@ Item {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             width: Style.space(280)
+            visible: root.tab === "designs"
             placeholderText: "Search designs"
             font.family: root.fontFamily
             onTextChanged: root.query = text
@@ -337,6 +388,7 @@ Item {
         // ================= Lock screen tab =================
         Item {
           id: lockTab
+          visible: root.tab === "designs"
           anchors.top: header.bottom
           anchors.topMargin: Style.space(14)
           anchors.left: parent.left
@@ -522,6 +574,11 @@ Item {
                         videoPlaying: false
                         twelveHour: root.service ? root.service.twelveHour : false
                         displayFont: root.service ? root.service.displayFont : Style.font.family
+                        avatarPath: root.service ? root.service.avatarPath : ""
+                        avatarVersion: root.service ? root.service.avatarVersion : 0
+                        displayName: root.service ? root.service.displayName : ""
+                        wallpaperBlur: root.service ? root.service.wallpaperBlur : true
+                        wallpaperDim: root.service ? root.service.wallpaperDim : 0
                       }
                     }
                   }
@@ -776,6 +833,27 @@ Item {
             }
           }
         }
+        }
+
+        // ================= Settings tab =================
+        SettingsTab {
+          id: settingsTab
+          visible: root.tab === "settings"
+          anchors.top: header.bottom
+          anchors.topMargin: Style.space(14)
+          anchors.left: parent.left
+          anchors.right: parent.right
+          anchors.bottom: parent.bottom
+          service: root.service
+          active: root.opened && root.tab === "settings"
+          designPath: root.activeDesign ? root.activeDesign.path : ""
+          foreground: root.foreground
+          accent: root.accent
+          muted: root.muted
+          fontFamily: root.fontFamily
+          onLeaveField: keys.forceActiveFocus()
+          onLockRequested: { if (root.service) root.service.lockNow(); root.dismiss() }
+          onBrowsingChanged: if (!browsing) keys.forceActiveFocus()
         }
       }
     }

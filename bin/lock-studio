@@ -1,0 +1,84 @@
+#!/bin/bash
+#
+# Lock Studio from the command line. Every command goes through the running
+# shell's IPC (`omarchy-shell lock …`), so the shell validates and saves the
+# settings exactly as the picker's Settings tab does.
+
+set -euo pipefail
+
+usage() {
+  cat <<'USAGE'
+Usage: lock-studio <command> [args]
+
+  list                    every setting, with defaults filled in
+  get <key>               one setting; dotted keys reach into widgets,
+                          e.g. widgets.clock.corner
+  set <key> <value>       e.g. set blankMode dim, set wallpaperDim 0.4,
+                          set displayName "Ada"
+  widget <name> <json>    e.g. widget weather '{"enabled":true,"unit":"metric"}'
+  design [id]             show the design in use, or switch to <id>
+  open                    open the picker
+  preview                 show the lock full screen without locking
+  lock                    lock now
+  status                  the lock service's status as JSON
+  reset                   reset settings, keeping design, clock and font
+  help                    this text
+
+Keys: displayName avatar wallpaper wallpaperBlur wallpaperDim blankMode
+      blankDelay twelveHour font
+Widgets: media volume weather network power clock avatar
+USAGE
+}
+
+# Prints the reply and fails unless it is "ok".
+call() {
+  local reply
+  reply=$(omarchy-shell lock "$@")
+  echo "$reply"
+  [[ $reply == "ok" ]]
+}
+
+need_jq() {
+  command -v jq >/dev/null 2>&1 || { echo "lock-studio: $1 needs jq" >&2; exit 1; }
+}
+
+cmd=${1:-help}
+(( $# > 0 )) && shift
+
+case $cmd in
+  list)
+    need_jq list
+    omarchy-shell lock settings | jq .
+    ;;
+  get)
+    (( $# == 1 )) || { usage >&2; exit 1; }
+    need_jq get
+    omarchy-shell lock settings | jq -r --arg k "$1" 'getpath($k | split("."))'
+    ;;
+  set)
+    (( $# == 2 )) || { usage >&2; exit 1; }
+    call setSetting "$1" "$2"
+    ;;
+  widget)
+    (( $# == 2 )) || { usage >&2; exit 1; }
+    call setWidget "$1" "$2"
+    ;;
+  design)
+    if (( $# == 0 )); then
+      omarchy-shell lock design
+    else
+      call setDesign "$1"
+    fi
+    ;;
+  open) call explore ;;
+  preview) call preview ;;
+  lock) call lock ;;
+  status) omarchy-shell lock status ;;
+  reset) call resetSettings ;;
+  help | -h | --help) usage ;;
+  *)
+    echo "lock-studio: unknown command: $cmd" >&2
+    usage >&2
+    exit 1
+    ;;
+esac
