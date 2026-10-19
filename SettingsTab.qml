@@ -471,6 +471,7 @@ Item {
               onLoaded: {
                 item.live = Qt.binding(function() { return root.active })
                 item.config = Qt.binding(function() { return root.widgets })
+                item.cache = root.service.widgetCache
                 item.twelveHour = Qt.binding(function() { return root.service ? root.service.twelveHour : false })
                 item.displayFont = Qt.binding(function() { return root.service ? root.service.displayFont : Style.font.family })
                 item.avatarPath = Qt.binding(function() { return root.service ? root.service.avatarPath : "" })

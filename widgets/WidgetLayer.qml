@@ -9,6 +9,7 @@ Item {
 
   // Set by the service.
   property var config: ({})
+  property var cache: null
   property bool live: false
   property bool twelveHour: false
   property string displayFont: Style.font.family

@@ -5,9 +5,9 @@ import qs.Commons
 import "file:///usr/share/omarchy/shell/plugins/panels/weather/Model.js" as WeatherModel
 
 // Current weather for the location set in Omarchy's weather panel. Fetches
-// only while the lock is live, at most every 15 minutes, and hides itself on
-// any failure. If an Omarchy update moves Model.js, only this widget's
-// Loader fails.
+// only while the lock is live, at most every 15 minutes, and hides itself
+// until a fetch succeeds. If an Omarchy update moves Model.js, only this
+// widget's Loader fails.
 WidgetCard {
   id: weather
 
@@ -43,6 +43,15 @@ WidgetCard {
     location = loc
     locationLoaded = true
     lastFetch = 0
+    // A reading another instance fetched for this location shows at once and
+    // counts as this one's last fetch.
+    var c = host && host.cache ? host.cache.weather : null
+    if (c && c.latitude === loc.latitude && c.longitude === loc.longitude && c.name === loc.name) {
+      current = c.current
+      country = c.country
+      hasWeather = true
+      lastFetch = c.at
+    }
     maybeRefresh()
   }
 
@@ -74,7 +83,10 @@ WidgetCard {
       fetchProc.source = "wttr"
       url = "https://wttr.in/" + WeatherModel.wttrLocationQuery(location.name, location.latitude, location.longitude) + "?format=j1"
     }
-    fetchProc.command = [curlBin, "-fsS", "--max-time", "8", url]
+    // About 1 in 30 requests to Open-Meteo stalls in the TLS handshake; a
+    // short timeout with retries gets past it instead of hiding the widget
+    // until the next 15-minute refresh.
+    fetchProc.command = [curlBin, "-fsS", "--max-time", "4", "--retry", "2", url]
     fetchProc.running = true
   }
 
@@ -97,9 +109,15 @@ WidgetCard {
           }
         } catch (e) { cur = null }
       }
+      // A failed refresh keeps the last good reading on screen.
+      if (cur === null && weather.hasWeather) return
       weather.current = cur
       weather.country = area
       weather.hasWeather = cur !== null
+      if (cur !== null && weather.host && weather.host.cache) {
+        var loc = weather.location
+        weather.host.cache.weather = { at: weather.lastFetch, latitude: loc.latitude, longitude: loc.longitude, name: loc.name, current: cur, country: area }
+      }
     }
   }
 

@@ -422,6 +422,10 @@ Item {
   }
 
   readonly property var widgetSettings: normalizeWidgets(settings ? settings.widgets : null)
+  // Widget data that outlives a widget: the lock, each preview and the
+  // Settings thumbnail build their own, and without this each new weather
+  // widget stayed hidden until its own fetch returned.
+  readonly property var widgetCache: ({})
   readonly property bool anyWidgetEnabled: {
     for (var name in widgetSettings) if (widgetSettings[name].enabled) return true
     return false
@@ -842,6 +846,7 @@ Item {
   function bindWidgetLayer(item, live) {
     item.live = Qt.binding(live)
     item.config = Qt.binding(function() { return root.widgetSettings })
+    item.cache = root.widgetCache
     item.twelveHour = Qt.binding(function() { return root.twelveHour })
     item.displayFont = Qt.binding(function() { return root.displayFont })
     item.avatarPath = Qt.binding(function() { return root.avatarPath })
@@ -1583,6 +1588,7 @@ Item {
     readonly property real wallpaperDim: root.wallpaperDim
     readonly property var settings: root.settings
     readonly property var widgetSettings: root.widgetSettings
+    readonly property var widgetCache: root.widgetCache
     readonly property string blankMode: root.blankMode
     readonly property int blankDelay: root.blankDelay
     readonly property string avatarDownloadStatus: root.avatarDownloadStatus
