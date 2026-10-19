@@ -1,7 +1,7 @@
 // name: Pixel Pet
 // description: A little pixel cat that blinks, watches you type, and sulks at a wrong password
 //
-// SmoothPixels original. A procedural sprite in the theme accent: it bobs,
+// Lock Studio original. A procedural sprite in the theme accent: it bobs,
 // blinks now and then, glances around, looks down at the field while you
 // type, squints while the password is checked, and flinches (in the error
 // color) when it was wrong. All motion stops with the display.

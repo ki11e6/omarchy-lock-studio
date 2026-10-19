@@ -2,13 +2,20 @@
 
 ![preview](preview.png)
 
-A lock screen for Omarchy with 66 designs and a picker to switch between them: twenty-one originals that follow your active Omarchy theme and need nothing downloaded, starting with the stock Omarchy lock screen itself, 38 fresh QML ports of themes from [Darkkal44/qylock](https://github.com/Darkkal44/qylock), and 7 original video wallpaper designs built from [wallsflow.com](https://wallsflow.com) live wallpapers.
+A lock screen for [Omarchy](https://omarchy.org) with 66 designs, a picker to switch between them, and settings that make it yours: your name, your avatar, your own lock wallpaper, and control over how the screen blanks.
 
-It replaces the stock lock screen as a clone of Omarchy's own `omarchy.lock`, so the session lock, the PAM password and fingerprint flows, display blanking and stranded-lock recovery are exactly the stock ones. Only what is drawn on the lock surface changes.
+Lock Studio replaces the stock lock screen as a clone of Omarchy's own `omarchy.lock`, so the session lock, the PAM password and fingerprint flows, display blanking and stranded-lock recovery behave exactly like stock. Only what is drawn on the lock surface changes.
 
-Two of the qylock ports, **Genshin Impact** and **Terraria**, change their background by the time of day. Both are marked "time-based" in the picker.
+[Features](#features) • [Install](#install) • [The picker](#the-picker) • [Personal settings](#personal-settings) • [Commands](#commands) • [Assets and verification](#assets-and-verification) • [Remove](#remove) • [Gallery](#gallery) • [Acknowledgements](#acknowledgements) • [Development](#development) • [License](#license)
 
-[Install](#install) • [The picker](#the-picker) • [Assets and verification](#assets-and-verification) • [Settings and commands](#settings-and-commands) • [Remove](#remove) • [Gallery](#gallery) • [Acknowledgements](#acknowledgements) • [Development](#development)
+## Features
+
+- **66 designs.** 21 originals that follow your active Omarchy theme and need nothing downloaded (the stock Omarchy lock screen among them), 38 ports of [qylock](https://github.com/Darkkal44/qylock) themes, and 7 video wallpaper designs. Genshin Impact, Terraria and Horizon change with the time of day.
+- **A picker** with previews, search, filters, a font choice and a 12/24-hour switch, driven entirely from the keyboard if you like.
+- **Personal settings.** Show your own name instead of the login name, pick an avatar, set a lock wallpaper that overrides the Omarchy background, and tune its blur and dimming.
+- **Blank modes.** Turn the display off after a delay (stock behaviour), only dim the lock surface, or never blank at all.
+- **Verified downloads.** Videos, images and fonts download on demand and are checked against pinned SHA-256 digests before use.
+- **Never stranded.** A design that is missing assets or fails to load falls back to the Omarchy default design, then to a bare password field.
 
 ## Install
 
@@ -27,6 +34,8 @@ Bind that command to a key in your Hyprland bindings, or add a **Style > Lock St
 ```sh
 ~/.config/omarchy/plugins/io.github.ki11e6.lock-studio/tools/install-menu-entries.sh
 ```
+
+Coming from Lock Designs? On first run Lock Studio adopts its design, clock format and font, and copies the assets it already downloaded, so nothing has to be fetched twice.
 
 Nothing outside `~/.config/omarchy/lock-studio/` is written. No sudo.
 
@@ -47,52 +56,36 @@ A grid of every design with a still preview, its source, and whether it is ready
 | / or any letter | Search |
 | Esc | Close |
 
-The header names the active Omarchy theme, and a key legend runs along the bottom of the picker. The footer switches every clock between 24-hour and 12-hour, previews the current design, and locks the screen. The **Font** dropdown in the header lists every font installed on the machine; the originals draw their clocks and captions in the one you pick, and "Theme font" puts them back on Omarchy's own. Third-party ports keep their bundled fonts.
+The header names the active Omarchy theme, and a key legend runs along the bottom. The footer switches every clock between 24-hour and 12-hour, previews the current design, and locks the screen. The **Font** dropdown lists every font installed on the machine; the originals draw their clocks and captions in the one you pick, and "Theme font" puts them back on Omarchy's own. Third-party ports keep their bundled fonts.
 
 Browsing is cheap on purpose: cards show a small JPEG, so scrolling never starts a video decoder. Only designs without a shipped still (the originals and your own files) are rendered live, paused. At most one design ever plays for real, in the preview or on the lock screen itself.
 
-## Assets and verification
+## Personal settings
 
-Every design with a video, image or font fetches it on demand, so a clone of this repository stays small. Each entry in `designs/thirdparty-assets.json` carries the file's SHA-256 and size and points at an immutable source: a full commit of `Darkkal44/qylock` for the qylock ports, or a GitHub release of this repository for the wallsflow videos:
+Settings live in `~/.config/omarchy/lock-studio/settings.json` and can be changed from the command line with `omarchy-shell lock setSetting <key> <value>`. Invalid values fall back to the default.
 
-```json
-"my-forest": {
-  "assetsDir": "forest-assets",
-  "files": [
-    {
-      "path": "bg.mp4",
-      "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2c…/themes/forest/bg.mp4",
-      "sha256": "97d54ce5…",
-      "size": 53320657,
-      "mirrors": []
-    }
-  ]
-}
+| Key | Default | Meaning |
+|---|---|---|
+| `design` | | Id of the selected design, for example `my-forest` |
+| `twelveHour` | `false` | `true` for 12-hour clocks |
+| `font` | `""` | Family the originals use for text, for example `Adwaita Sans`; empty follows the theme font |
+| `displayName` | `""` | Name shown on the lock screen; empty uses the login name |
+| `avatar` | `""` | Path to an avatar image; empty tries AccountsService, then `~/.face`, then `~/.face.icon` |
+| `wallpaper` | `""` | Path to a lock wallpaper; empty (or a missing file) uses the Omarchy background |
+| `wallpaperBlur` | `true` | Blur the wallpaper in designs that blur it |
+| `wallpaperDim` | `0` | Darken the wallpaper, from `0` to `1` |
+| `blankMode` | `"off"` | `off` turns the display off, `dim` darkens the lock surface but keeps the panel on, `never` leaves it alone |
+| `blankDelay` | `5` | Seconds of idle on the lock screen before blanking, from 1 to 300 |
+
+```sh
+omarchy-shell lock setSetting displayName "Alex"
+omarchy-shell lock setSetting wallpaper ~/Pictures/lock.jpg
+omarchy-shell lock setSetting wallpaperDim 0.3
+omarchy-shell lock setSetting blankMode dim
+omarchy-shell lock setSetting blankDelay 30
 ```
 
-The downloader fetches each file to a `.part` file, hashes it, and only moves it into place when the digest matches. A catalog entry without a digest is refused outright, and a mismatch is reported on the card and the file discarded. Optional `mirrors` are tried in order after `url`; the digest has to match whichever source answered, so a mirror can never weaken the check. The only network access this plugin ever makes is these downloads, and only when you ask for one.
-
-Downloaded assets live in `~/.config/omarchy/lock-studio/<design>-assets/`. The 7 wallsflow videos are served from the `media-1` release of this repository, because wallsflow's own CDN blocks scripted downloads and offers nothing that could be pinned; their digests sit in the same catalog and go through the same check.
-
-Maintainer tools:
-
-| Tool | Purpose |
-|---|---|
-| `tools/pin-assets.sh <commit>` | Re-point every qylock URL at a commit and record fresh digests and sizes for every file, release-hosted ones included |
-| `tools/verify-assets.sh` | Check every downloaded asset on this machine against the catalog |
-| `tools/mirror-assets.sh <tag>` | Optional: publish the pinned set as a GitHub release and add the URLs as mirrors (read the licensing note in the script first) |
-
-A GitHub Actions workflow (`.github/workflows/catalog.yml`) checks on every change to the catalog that each entry points at a qylock commit or a release of this repository and carries a digest and size; run it by hand to download every file and verify the digests too.
-
-## Settings and commands
-
-Settings are kept in `~/.config/omarchy/lock-studio/settings.json`:
-
-| Key | Meaning |
-|---|---|
-| `design` | Id of the selected design, for example `my-forest` |
-| `twelveHour` | `true` for 12-hour clocks |
-| `font` | Family the originals use for text, for example `Adwaita Sans`; empty follows the theme font |
+## Commands
 
 Everything the picker does is also reachable from the command line through the stock `lock` target, which this plugin answers as the active lock:
 
@@ -108,12 +101,50 @@ omarchy-shell lock previewStep 1             # next ready design in the preview 
 omarchy-shell lock download my-forest        # verified download of its assets
 omarchy-shell lock removeAssets my-forest
 omarchy-shell lock setClockFormat 12         # or 24
-omarchy-shell lock setFont "Adwaita Sans"     # font for the originals; empty string follows the theme
+omarchy-shell lock setFont "Adwaita Sans"    # font for the originals; empty string follows the theme
+omarchy-shell lock setSetting <key> <value>  # any key from Personal settings
 omarchy-shell lock lock                      # same as the stock lock
 omarchy-shell lock status
 ```
 
-Locking is as quick as the stock lock: a design compiles and instantiates in a few milliseconds, and Qt's multimedia module, which costs about 700 ms the first time it loads, is warmed up a few seconds after the shell starts so the first video lock does not pay for it. A design that needs assets you have not downloaded, or one that fails to load, is never left on a locked screen: the lock falls back to the Omarchy default design, and if even that fails, to a bare password field with no dependencies at all.
+Locking is as quick as the stock lock: a design compiles and instantiates in a few milliseconds, and Qt's multimedia module, which costs about 700 ms the first time it loads, is warmed up a few seconds after the shell starts so the first video lock does not pay for it.
+
+## Assets and verification
+
+Every design with a video, image or font fetches it on demand, so a clone of this repository stays small. Each entry in `designs/thirdparty-assets.json` carries the file's SHA-256 and size and points at the `assets-1` release of this repository. Each qylock file keeps its pinned `Darkkal44/qylock` commit URL in `mirrors` as a fallback. Google Sans, NDot55 and NType82 are not freely redistributable, so those three fonts are fetched from qylock directly:
+
+```json
+"my-forest": {
+  "assetsDir": "forest-assets",
+  "files": [
+    {
+      "path": "bg.mp4",
+      "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/forest--bg.mp4",
+      "sha256": "97d54ce5…",
+      "size": 53320657,
+      "mirrors": [
+        "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2c…/themes/forest/bg.mp4"
+      ]
+    }
+  ]
+}
+```
+
+The downloader fetches each file to a `.part` file, hashes it, and only moves it into place when the digest matches. A catalog entry without a digest is refused outright, and a mismatch is reported on the card and the file discarded. Optional `mirrors` are tried in order after `url`; the digest has to match whichever source answered, so a mirror can never weaken the check. The only network access this plugin ever makes is these downloads, and only when you ask for one.
+
+Downloaded assets live in `~/.config/omarchy/lock-studio/<design>-assets/`. The 7 wallsflow videos are served from the same release, because wallsflow's own CDN blocks scripted downloads and offers nothing that could be pinned; their digests sit in the same catalog and go through the same check.
+
+Maintainer tools:
+
+| Tool | Purpose |
+|---|---|
+| `tools/pin-assets.sh <commit>` | Re-point every qylock URL (in `url` or `mirrors`) at a commit and record fresh digests and sizes for every file, release-hosted ones included |
+| `tools/verify-assets.sh` | Check every downloaded asset on this machine against the catalog |
+| `tools/mirror-assets.sh <tag> --primary` | Upload the pinned set to a GitHub release of this repository and make the release URLs primary, keeping qylock as fallback; without `--primary` the release URLs are only added as mirrors. The non-redistributable fonts are always skipped (read the licensing note in the script first) |
+
+To move to a new qylock commit, run `tools/pin-assets.sh <commit>` and then `tools/mirror-assets.sh assets-1 --primary` again so the release holds the new files.
+
+A GitHub Actions workflow (`.github/workflows/catalog.yml`) checks on every change to the catalog that each entry points at a qylock commit or a release of this repository and carries a digest and size; run it by hand to download every file and verify the digests too.
 
 ## Remove
 
@@ -191,7 +222,19 @@ Horizon, Tide, Fireflies, Spotlight, Starry City, Pixel Pet, Circuit and TTY ani
 
 ## Acknowledgements
 
-The QML in this repo is written from scratch, none of it is copy-pasted from qylock's GPL-3.0 source. The video/image/font assets are a different matter, those are fetched on demand straight from Darkkal44's own hosted copies at a pinned commit, so full credit for them (and the original wallpaper artists behind them) belongs there.
+Lock Studio stands on the work of these projects:
+
+- **[Lock Designs](https://github.com/SmoothPixels/lock-designs)** by Jean Alvarado (MIT): the design host, picker, verified downloader and design collection Lock Studio grew from.
+- **[Omarchy](https://github.com/omacom/omarchy)** (MIT): the `omarchy.lock` plugin this lock is cloned from, the weather model the weather widget uses, and the shell it all runs in.
+- **[zen-lock](https://github.com/rover-001/zen-lock)** by rover-001 (MIT): the lock wallpaper override, the avatar fallback chain and the dim blank mode.
+- **[omaarch.lock](https://github.com/archlatam/omaarch.lock)** by archlatam (MIT): the media and volume widget approach.
+- **[omalock](https://github.com/asdfsnlr/omalock)** by asdfsnlr (MIT): the album-art fetch, the weather and network widgets, the corner layout, the avatar shape and the date and time formats.
+- **[qylock](https://github.com/Darkkal44/qylock)** by Darkkal44 (GPL-3.0): the themes the 38 ports are based on. The ports' QML is written against this plugin's own components, not copied from qylock's source. Their video, image and font files are re-hosted unmodified on this repository's `assets-1` release under qylock's GPL-3.0, so full credit for them belongs there.
+- **[Wallsflow](https://wallsflow.com)**, **[MoeWalls](https://moewalls.com)** and the artists below, for the wallpapers.
+
+Every font's license and copyright line is listed in [NOTICE.md](NOTICE.md#fonts).
+
+### Wallpapers and fonts
 
 | Design | Wallpaper source | Bundled font |
 |---|---|---|
@@ -230,9 +273,9 @@ The QML in this repo is written from scratch, none of it is copy-pasted from qyl
 | Women Umbrella | [MoeWalls](https://moewalls.com/anime/women-with-umbrella-live-wallpaper/) | Itim |
 | Wuthering Waves | [YouTube](https://www.youtube.com/watch?v=xKKqi1zLrZ4) | Orbitron |
 
-### Wallsflow originals
+#### Wallsflow designs
 
-Downloaded on demand from the `media-1` release of this repository and verified against the catalog, since wallsflow's CDN blocks scripted downloads and has nothing that could be pinned.
+Downloaded on demand from the `assets-1` release of this repository and verified against the catalog, since wallsflow's CDN blocks scripted downloads and has nothing that could be pinned.
 
 | Design | Wallpaper source |
 |---|---|
@@ -244,11 +287,10 @@ Downloaded on demand from the `media-1` release of this repository and verified 
 | Supercar Sakura | [WallsFlow](https://wallsflow.com/live-wallpapers/cars/495-supercar-dreamscape-under-sakura-blossoms.html) |
 | Porsche 911 Darkness | [WallsFlow](https://wallsflow.com/live-wallpapers/cars/756-porsche-911-timeless-performance-in-darkness-live-wallpaper.html) |
 
-The design components (`DesignBase`, `PasswordField`, `LockInput`, `Avatar`) and every design are this plugin's own work.
 
 ## Development
 
-Changes by version are in [CHANGELOG.md](CHANGELOG.md).
+Changes by version are in [CHANGELOG.md](CHANGELOG.md). `./dev.sh` syncs the checkout into `~/.config/omarchy/plugins/`, validates it, restarts the shell and enables the plugin.
 
 Designs are plain QML files in `designs/`, each with a `DesignBase` root. They sit next to `DesignBase.qml`, `PasswordField.qml`, `LockInput.qml` and `Avatar.qml`, so no import line is needed. The service mirrors that folder into `~/.config/omarchy/lock-studio/` on every shell start, and a design dropped straight into that folder shows up in the picker too.
 
@@ -273,4 +315,6 @@ tools/verify-assets.sh
 
 If a lock screen change ever leaves you unable to unlock, switch to a TTY (Ctrl+Alt+F3), log in, and run `omarchy plugin disable io.github.ki11e6.lock-studio && omarchy plugin enable omarchy.lock`, then `omarchy restart shell`.
 
-See [NOTICE.md](NOTICE.md) for the full licensing picture.
+## License
+
+MIT, see [LICENSE](LICENSE). Third-party notices are in [NOTICE.md](NOTICE.md).

@@ -1,7 +1,7 @@
 // name: Masthead
 // description: A big clock bottom left, editorial style, the sign-in underneath
 //
-// SmoothPixels original. The wallpaper stays sharp behind a veil that
+// Lock Studio original. The wallpaper stays sharp behind a veil that
 // deepens toward the bottom edge. Down in the corner: the date in spaced
 // capitals, a hairline rule in the accent, the time set large and tight, and
 // the password field beneath it, left-aligned like a caption. The greeting

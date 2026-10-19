@@ -1,7 +1,7 @@
 // name: Nixie
 // description: Four nixie tubes, the time glowing as bent wire behind glass
 //
-// SmoothPixels original. The digits are what a nixie tube really holds: ten
+// Lock Studio original. The digits are what a nixie tube really holds: ten
 // wire cathodes stacked in a glass envelope, drawn here as stroked paths with
 // round caps. The lit one glows a hot near-white over neon orange, the other
 // nine sit faintly behind it. The one original with a fixed hue on purpose;

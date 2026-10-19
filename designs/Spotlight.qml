@@ -1,7 +1,7 @@
 // name: Spotlight
 // description: Your wallpaper in the dark, lit only around the sign-in
 //
-// SmoothPixels original. The wallpaper is shown sharp but under a veil of the
+// Lock Studio original. The wallpaper is shown sharp but under a veil of the
 // theme background, with a soft circle of light around the clock and field
 // that drifts very slowly while the display is awake.
 import QtQuick

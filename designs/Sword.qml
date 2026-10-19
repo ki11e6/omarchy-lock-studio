@@ -9,7 +9,7 @@
 //
 // The source bundles "The Last Shuriken.ttf". Its capital "A" renders
 // nearly identical to "R" (verified directly against the font file,
-// independent of Qt) -- "SATURDAY" reads as "SRTURDRY", "JEAN" as "JERN".
+// independent of Qt) -- "SATURDAY" reads as "SRTURDRY", "JANUARY" as "JRNURRY".
 // It stays on the big clock, where digits are unambiguous, but every word
 // label below uses the shell's normal font instead.
 import QtQuick

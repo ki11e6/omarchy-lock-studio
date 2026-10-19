@@ -1,7 +1,7 @@
 // name: Halo
 // description: A ring around the clock that fills as you type
 //
-// SmoothPixels original. The clock sits inside a thin ring. Idle, a faint
+// Lock Studio original. The clock sits inside a thin ring. Idle, a faint
 // arc in the accent marks the seconds; start typing and the ring fills in the
 // accent, one segment per character, all the way round at sixteen. It spins
 // while the password is checked, lights up whole in the error color on a

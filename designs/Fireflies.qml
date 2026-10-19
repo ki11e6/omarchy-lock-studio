@@ -1,7 +1,7 @@
 // name: Fireflies
 // description: Drifting points of light in your accent color over the dark
 //
-// SmoothPixels original. Forty-odd fireflies wander and pulse over a dark
+// Lock Studio original. Forty-odd fireflies wander and pulse over a dark
 // gradient with a warm ground glow, all in the theme accent. Every motion is
 // tied to the display being awake, so nothing animates behind a blank screen
 // or inside the picker's paused thumbnails.

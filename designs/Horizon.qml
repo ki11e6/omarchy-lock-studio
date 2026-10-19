@@ -2,7 +2,7 @@
 // description: A sky, sun and moon that follow the hour, over rolling hills in your theme
 // timebased: 1
 //
-// SmoothPixels original. The sky blends between night and day tones derived
+// Lock Studio original. The sky blends between night and day tones derived
 // from the active theme, the sun crosses it between 6 and 18 and the moon
 // takes the night shift, and three procedural ridges close the bottom. No
 // assets, no fixed palette.

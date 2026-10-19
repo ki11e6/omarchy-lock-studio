@@ -1,7 +1,7 @@
 // name: Hush
 // description: No box at all: just type, and a dot appears for every letter
 //
-// SmoothPixels original. A thin clock over the wallpaper under a quiet veil,
+// Lock Studio original. A thin clock over the wallpaper under a quiet veil,
 // and nothing that looks like a form. Start typing and a row of dots grows
 // under the date, one per character, centered as it lengthens; Enter sends
 // it. A wrong password turns the row to the error color and shivers it, and

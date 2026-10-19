@@ -1,7 +1,7 @@
 // name: Dot Matrix
 // description: The time on a glowing LED board in your accent color
 //
-// SmoothPixels original. A dark room, a bezelled LED panel, and the time
+// Lock Studio original. A dark room, a bezelled LED panel, and the time
 // picked out in lit dots of the theme accent with the colon blinking the
 // seconds. A failed attempt turns the lit dots to the theme's error color
 // until you type again.

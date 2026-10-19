@@ -1,7 +1,7 @@
 // name: Bento
 // description: A frosted grid of clock, date, greeting and week tiles over your wallpaper
 //
-// SmoothPixels original. Your wallpaper, blurred, under a bento box of tiles
+// Lock Studio original. Your wallpaper, blurred, under a bento box of tiles
 // in the theme's lock colors: a big clock, the date, a greeting with your
 // avatar, the week at a glance, and the password field as the bottom row.
 import QtQuick

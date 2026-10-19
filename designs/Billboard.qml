@@ -1,7 +1,7 @@
 // name: Billboard
 // description: Huge stacked hours and minutes, the sign-in in the corner
 //
-// SmoothPixels original. Two enormous numerals stacked on the right of the
+// Lock Studio original. Two enormous numerals stacked on the right of the
 // wallpaper: the hour in the theme foreground, the minutes in the accent,
 // set tight enough to read as one block. The date and the password field
 // keep to the bottom left, small, so the numerals stay the whole point.

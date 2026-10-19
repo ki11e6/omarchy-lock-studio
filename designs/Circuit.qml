@@ -1,7 +1,7 @@
 // name: Circuit
 // description: A chip carrying the time, traces routed out to pads, pulses running along them
 //
-// SmoothPixels original. The clock is etched on an IC package in the middle
+// Lock Studio original. The clock is etched on an IC package in the middle
 // of a board; sixteen traces leave its pins, bend at 45 degrees and end in
 // pads, all in the theme accent. A few pulses travel the traces while the
 // display is awake. The routing is generated from a fixed seed, so the board

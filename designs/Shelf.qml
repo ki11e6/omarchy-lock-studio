@@ -1,7 +1,7 @@
 // name: Shelf
 // description: Everything on a slim shelf along the bottom edge
 //
-// SmoothPixels original. The wallpaper takes the whole screen; a slim
+// Lock Studio original. The wallpaper takes the whole screen; a slim
 // translucent shelf floats above the bottom edge with your avatar and name
 // on the left, the password field in the middle, and the clock and date on
 // the right. Nothing else, so the wallpaper is the picture.

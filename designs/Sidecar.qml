@@ -1,7 +1,7 @@
 // name: Sidecar
 // description: Your wallpaper on the left, the sign-in on a panel to the right
 //
-// SmoothPixels original. The screen splits three fifths to two: the
+// Lock Studio original. The screen splits three fifths to two: the
 // wallpaper runs edge to edge on the left with the clock in its lower
 // corner, and a solid panel in the theme background carries your avatar,
 // name, greeting and the password field on the right.

@@ -1,6 +1,6 @@
 // name: Starry City
 // description: A procedural pixel skyline whose windows come on and go out through the night
-// SmoothPixels lock design: a procedural pixel-block skyline at night, lit
+// Lock Studio original: a procedural pixel-block skyline at night, lit
 // windows scattered across the silhouette. Started as a riff on the mood of
 // Darkkal44's qylock "pixel-cyberpunk" theme, but once every color moved to
 // following the active Omarchy theme instead of a fixed neon palette, it

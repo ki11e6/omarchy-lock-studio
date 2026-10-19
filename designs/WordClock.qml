@@ -1,7 +1,7 @@
 // name: Word Clock
 // description: The time spelled out, lit letter by letter in a grid
 //
-// SmoothPixels original. An eleven by ten grid of letters; the ones that
+// Lock Studio original. An eleven by ten grid of letters; the ones that
 // spell the current time to the nearest five minutes light up in the theme
 // foreground, four small dots below count the minutes in between. The grid
 // layout is this plugin's own.

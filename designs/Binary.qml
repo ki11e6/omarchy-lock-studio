@@ -1,7 +1,7 @@
 // name: Binary
 // description: The time in binary-coded decimal, one column of dots per digit
 //
-// SmoothPixels original. Six columns for HH MM SS, four bits each, lit in the
+// Lock Studio original. Six columns for HH MM SS, four bits each, lit in the
 // theme accent; the decimal digit sits under every column for anyone not in
 // the mood to add up powers of two. Bits a column can never reach are left
 // out rather than drawn dark.

@@ -1,7 +1,7 @@
 // name: Postcard
 // description: Clock, avatar and greeting on one frosted card over your wallpaper
 //
-// SmoothPixels original. The wallpaper, softly blurred, with a single frosted
+// Lock Studio original. The wallpaper, softly blurred, with a single frosted
 // card in the middle: the time on top, your avatar with a greeting, and the
 // password field along the bottom. Every color comes from the active theme.
 import QtQuick

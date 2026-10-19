@@ -1,7 +1,7 @@
 // name: TTY
 // description: A console login prompt, the way a bare terminal asks
 //
-// SmoothPixels original. No wallpaper: a full-screen console in the theme's
+// Lock Studio original. No wallpaper: a full-screen console in the theme's
 // background and text colors, showing the banner a login prompt prints, the
 // live date and time, and the classic "login:" and "Password:" pair. The
 // block cursor blinks while the display is awake, typing echoes nothing (a

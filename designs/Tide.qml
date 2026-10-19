@@ -1,7 +1,7 @@
 // name: Tide
 // description: Slow waves in your theme's colors, the sign-in floating on the surface
 //
-// SmoothPixels original. Three layers of water roll across the bottom third,
+// Lock Studio original. Three layers of water roll across the bottom third,
 // each on its own rhythm, in translucent tints of the theme accent; the clock
 // hangs in the air above and the password field sits on the waterline. The
 // motion pauses whenever the display is blanked.
