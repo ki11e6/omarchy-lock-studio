@@ -4,15 +4,21 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/neo-orbital/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/clockworkneoorbital--bg.png",
         "sha256": "14c51a859747dc09b39abb11fc0e1104070a8c2556880fa727a3c45f4c09d986",
-        "size": 2316938
+        "size": 2316938,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/neo-orbital/bg.png"
+        ]
       },
       {
         "path": "font/Outfit-Black.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/neo-orbital/font/Outfit-Black.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/clockworkneoorbital--font__Outfit-Black.ttf",
         "sha256": "f240e6128c31a75aa3f456ea1ff3b0fda382176681788ae3d244d08e3fa7d6cd",
-        "size": 55372
+        "size": 55372,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/neo-orbital/font/Outfit-Black.ttf"
+        ]
       }
     ]
   },
@@ -21,9 +27,12 @@
     "files": [
       {
         "path": "font/Outfit-Black.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/orbital/font/Outfit-Black.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/clockworkorbital--font__Outfit-Black.ttf",
         "sha256": "f240e6128c31a75aa3f456ea1ff3b0fda382176681788ae3d244d08e3fa7d6cd",
-        "size": 55372
+        "size": 55372,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/orbital/font/Outfit-Black.ttf"
+        ]
       }
     ]
   },
@@ -32,9 +41,12 @@
     "files": [
       {
         "path": "font/Outfit-Black.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/tape/font/Outfit-Black.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/clockworktape--font__Outfit-Black.ttf",
         "sha256": "f240e6128c31a75aa3f456ea1ff3b0fda382176681788ae3d244d08e3fa7d6cd",
-        "size": 55372
+        "size": 55372,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/clockwork/tape/font/Outfit-Black.ttf"
+        ]
       }
     ]
   },
@@ -43,15 +55,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/dog-samurai/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/dogsamurai--bg.mp4",
         "sha256": "78e3b5227f9e8dd64164d445cdf9612e581bc6a34f77fb211efd6793a755ede8",
-        "size": 15814471
+        "size": 15814471,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/dog-samurai/bg.mp4"
+        ]
       },
       {
         "path": "font/Orbitron-VariableFont_wght.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/dog-samurai/font/Orbitron-VariableFont_wght.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/dogsamurai--font__Orbitron-VariableFont_wght.ttf",
         "sha256": "46eefc7084fd9abffd87547c47f729b6071c7f7a8d5af281266bb09e5461c435",
-        "size": 38548
+        "size": 38548,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/dog-samurai/font/Orbitron-VariableFont_wght.ttf"
+        ]
       }
     ]
   },
@@ -60,15 +78,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/enfield/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/enfield--bg.mp4",
         "sha256": "d6a57ef404c08c5246029aa724b9ad9cb0294799696495c08dd15b8c044a47ae",
-        "size": 20439635
+        "size": 20439635,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/enfield/bg.mp4"
+        ]
       },
       {
         "path": "font/Orbitron-VariableFont_wght.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/enfield/font/Orbitron-VariableFont_wght.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/enfield--font__Orbitron-VariableFont_wght.ttf",
         "sha256": "46eefc7084fd9abffd87547c47f729b6071c7f7a8d5af281266bb09e5461c435",
-        "size": 38548
+        "size": 38548,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/enfield/font/Orbitron-VariableFont_wght.ttf"
+        ]
       }
     ]
   },
@@ -77,15 +101,21 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/field/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/field--bg.png",
         "sha256": "4e673009ca8421907a03360e992d934ebefc4d97bc763f6d4541be50329175a7",
-        "size": 1784920
+        "size": 1784920,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/field/bg.png"
+        ]
       },
       {
         "path": "font/Orbitron-VariableFont_wght.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/field/font/Orbitron-VariableFont_wght.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/field--font__Orbitron-VariableFont_wght.ttf",
         "sha256": "46eefc7084fd9abffd87547c47f729b6071c7f7a8d5af281266bb09e5461c435",
-        "size": 38548
+        "size": 38548,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/field/font/Orbitron-VariableFont_wght.ttf"
+        ]
       }
     ]
   },
@@ -94,15 +124,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/forest/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/forest--bg.mp4",
         "sha256": "97d54ce5e4cd06d1c0d53adb681b6809dda68334b5fcaff6f2ce2fe6bfdf0814",
-        "size": 53320657
+        "size": 53320657,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/forest/bg.mp4"
+        ]
       },
       {
         "path": "font/Figtree-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/forest/font/Figtree-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/forest--font__Figtree-Bold.ttf",
         "sha256": "183bf1a8523731738c72be9aa8236453a21d6a3ed70bd8e5266723b212331dc4",
-        "size": 40324
+        "size": 40324,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/forest/font/Figtree-Bold.ttf"
+        ]
       }
     ]
   },
@@ -111,27 +147,39 @@
     "files": [
       {
         "path": "dawn.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/dawn.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/genshin--dawn.mp4",
         "sha256": "eb552c2335662e73b1fecc5fad4c49c5a9673e6b43cad7c614b4dc76dd013509",
-        "size": 13783996
+        "size": 13783996,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/dawn.mp4"
+        ]
       },
       {
         "path": "day.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/day.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/genshin--day.mp4",
         "sha256": "a0f83548bc7d265768bc72cc7973f737176ce4ec18ab2a6156338255aceb4fdc",
-        "size": 11865025
+        "size": 11865025,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/day.mp4"
+        ]
       },
       {
         "path": "dusk.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/dusk.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/genshin--dusk.mp4",
         "sha256": "4ebab81ef76cff03f61f64570fbf7bdb7bc34ed64c0a07944f1c5094aa0edbb4",
-        "size": 12909349
+        "size": 12909349,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/dusk.mp4"
+        ]
       },
       {
         "path": "night.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/night.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/genshin--night.mp4",
         "sha256": "511b6e735d4754abd38ae0125a4130dd8f8b26446bb33a449fd43787654977e1",
-        "size": 13188947
+        "size": 13188947,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/Genshin/night.mp4"
+        ]
       }
     ]
   },
@@ -140,15 +188,21 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-coffee/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/girlcoffee--bg.png",
         "sha256": "7019b5c5b6fb59aff1ad523ef8e980b48a751a79e0720686213d2743873c81ef",
-        "size": 1053098
+        "size": 1053098,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-coffee/bg.png"
+        ]
       },
       {
         "path": "font/Itim-Regular.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-coffee/font/Itim-Regular.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/girlcoffee--font__Itim-Regular.ttf",
         "sha256": "acdd351e7e72ab5e3d16cc26cda212c51482905cd83cc5bfb8c799c272e0e09a",
-        "size": 362640
+        "size": 362640,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-coffee/font/Itim-Regular.ttf"
+        ]
       }
     ]
   },
@@ -157,15 +211,21 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-pillow/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/girlpillow--bg.png",
         "sha256": "6fc76427616c2566a1d392ec05b2c066321a9fedc2e54abe5680a2cdf2d3739d",
-        "size": 485309
+        "size": 485309,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-pillow/bg.png"
+        ]
       },
       {
         "path": "font/Itim-Regular.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-pillow/font/Itim-Regular.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/girlpillow--font__Itim-Regular.ttf",
         "sha256": "acdd351e7e72ab5e3d16cc26cda212c51482905cd83cc5bfb8c799c272e0e09a",
-        "size": 362640
+        "size": 362640,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/girl-pillow/font/Itim-Regular.ttf"
+        ]
       }
     ]
   },
@@ -174,15 +234,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/last-of-us/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/lastofus--bg.mp4",
         "sha256": "da57a8e3ace0c78f862c252603998c730ed9289bbd5e7866fb6b930fcda7e639",
-        "size": 78248674
+        "size": 78248674,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/last-of-us/bg.mp4"
+        ]
       },
       {
         "path": "font/Outfit-Black.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/last-of-us/font/Outfit-Black.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/lastofus--font__Outfit-Black.ttf",
         "sha256": "f240e6128c31a75aa3f456ea1ff3b0fda382176681788ae3d244d08e3fa7d6cd",
-        "size": 55372
+        "size": 55372,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/last-of-us/font/Outfit-Black.ttf"
+        ]
       }
     ]
   },
@@ -191,15 +257,21 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/man-bicycle/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/manbicycle--bg.png",
         "sha256": "cced9213b0bd0437fc331216b841fc000c3e525ea00eade7fd19cdfc56a6947d",
-        "size": 5005352
+        "size": 5005352,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/man-bicycle/bg.png"
+        ]
       },
       {
         "path": "font/Itim-Regular.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/man-bicycle/font/Itim-Regular.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/manbicycle--font__Itim-Regular.ttf",
         "sha256": "acdd351e7e72ab5e3d16cc26cda212c51482905cd83cc5bfb8c799c272e0e09a",
-        "size": 362640
+        "size": 362640,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/man-bicycle/font/Itim-Regular.ttf"
+        ]
       }
     ]
   },
@@ -208,9 +280,12 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/material-you/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/materialyou--bg.png",
         "sha256": "a27c8408266933a145a4330d1267aa082831b589f29a155ed06b149638b4380f",
-        "size": 735445
+        "size": 735445,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/material-you/bg.png"
+        ]
       },
       {
         "path": "font/GoogleSans.ttf",
@@ -225,9 +300,12 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/material-you-dark/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/materialyoudark--bg.png",
         "sha256": "5319cc79f5a46c3cabf013f1423f5d262cae3957867d026be54ecdd6961559d9",
-        "size": 354787
+        "size": 354787,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/material-you-dark/bg.png"
+        ]
       },
       {
         "path": "font/GoogleSans.ttf",
@@ -242,15 +320,21 @@
     "files": [
       {
         "path": "background.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/minecraft/background.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/minecraft--background.png",
         "sha256": "c961a47b8cb6f941a8a83b688ce89116105a20ee38f68b70034f57909783cb6e",
-        "size": 99483
+        "size": 99483,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/minecraft/background.png"
+        ]
       },
       {
         "path": "title.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/minecraft/title.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/minecraft--title.png",
         "sha256": "416559556fbe3eae4fa2c9f12f43e409103d3cb5b785e38a036a1f2ad80c0af6",
-        "size": 119404
+        "size": 119404,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/minecraft/title.png"
+        ]
       }
     ]
   },
@@ -259,9 +343,12 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/nier-automata/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/nierautomata--bg.png",
         "sha256": "24c143cb85ca412ebab0f8013b5f0b2c224063ffdec7d4cf70d7d439117b9fd8",
-        "size": 161561
+        "size": 161561,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/nier-automata/bg.png"
+        ]
       }
     ]
   },
@@ -270,21 +357,30 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninesols/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/ninesols--bg.png",
         "sha256": "791cd6dc3b4451f6bbd5c3b1b309d7e540f157c60de98fc901c3b48c7720e9a0",
-        "size": 793159
+        "size": 793159,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninesols/bg.png"
+        ]
       },
       {
         "path": "font/DejaVuSans.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninesols/font/DejaVuSans.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/ninesols--font__DejaVuSans.ttf",
         "sha256": "08ca98e69d9d8fa1065584b4f9ab7d49b6205abea6572b90e171b254845bb990",
-        "size": 741536
+        "size": 741536,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninesols/font/DejaVuSans.ttf"
+        ]
       },
       {
         "path": "logo.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninesols/logo.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/ninesols--logo.png",
         "sha256": "84329b73a9ee81e94a18e134132830f0e9c331fb3c5618a7a392fe64a8f95925",
-        "size": 163776
+        "size": 163776,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninesols/logo.png"
+        ]
       }
     ]
   },
@@ -293,15 +389,21 @@
     "files": [
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninja_gaiden/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/ninjagaiden--bg.png",
         "sha256": "5bf876b930e4d006803e2de48911fc8526f354c221adafc3930a91c703a129ed",
-        "size": 265063
+        "size": 265063,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninja_gaiden/bg.png"
+        ]
       },
       {
         "path": "font/Tektur-VariableFont.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninja_gaiden/font/Tektur-VariableFont_wdth,wght.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/ninjagaiden--font__Tektur-VariableFont.ttf",
         "sha256": "1ff1792ecc4728cf011d31e43a53a5c97e82f5c7cc7b9f23af24b209106e962c",
-        "size": 162656
+        "size": 162656,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/ninja_gaiden/font/Tektur-VariableFont_wdth,wght.ttf"
+        ]
       }
     ]
   },
@@ -327,15 +429,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-coffee/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelcoffee--bg.mp4",
         "sha256": "4dae055f9a0bb80ce605b490dd146431b894cc134d189e421003a51454dae582",
-        "size": 2350926
+        "size": 2350926,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-coffee/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-coffee/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelcoffee--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-coffee/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -344,15 +452,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-cyberpunk/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelcyberpunk--bg.mp4",
         "sha256": "9c65f676144466ad7f64f7353c42deafc18f1cc3e1d2b48998ad0f5123ab122b",
-        "size": 9183955
+        "size": 9183955,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-cyberpunk/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-cyberpunk/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelcyberpunk--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-cyberpunk/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -361,15 +475,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-dusk-city/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelduskcity--bg.mp4",
         "sha256": "265b90e56f811338e4dacc5b0e517a1d3a653ba3f7c4f4a8482b605e48f52cd9",
-        "size": 2865191
+        "size": 2865191,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-dusk-city/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-dusk-city/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelduskcity--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-dusk-city/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -378,15 +498,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-emerald/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelemerald--bg.mp4",
         "sha256": "e904eb50757e5569e6666f3f41acf1f1fbe7427d9143783b923ed9e9a1c88cdb",
-        "size": 15354720
+        "size": 15354720,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-emerald/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-emerald/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelemerald--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-emerald/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -395,15 +521,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-hollowknight/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelhollowknight--bg.mp4",
         "sha256": "6678f406a6af8b8a566a51fac6d2a96a86258f18b7707e6bcb990d0f247a043f",
-        "size": 40617754
+        "size": 40617754,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-hollowknight/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-hollowknight/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelhollowknight--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-hollowknight/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -412,15 +544,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-munchlax/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelmunchlax--bg.mp4",
         "sha256": "896f121b73654c8b1eb9c910226ba1f9b0b660d697e1e98e2c7b1aa96194bf7d",
-        "size": 3473010
+        "size": 3473010,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-munchlax/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-munchlax/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelmunchlax--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-munchlax/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -429,15 +567,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-night-city/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelnightcity--bg.mp4",
         "sha256": "e74465d4c4ded1168c1f3a0e00bf8c05998538a232fbdfc2d1bc5e0c87a8d2ee",
-        "size": 12037452
+        "size": 12037452,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-night-city/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-night-city/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelnightcity--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-night-city/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -446,15 +590,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-rainyroom/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelrainyroom--bg.mp4",
         "sha256": "0c58010f246933296a21c370502927d4e4ac36690baa1671611fd41a98909e36",
-        "size": 14740048
+        "size": 14740048,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-rainyroom/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-rainyroom/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelrainyroom--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-rainyroom/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -463,15 +613,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-sakura/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelsakura--bg.mp4",
         "sha256": "c752929b3dcb2a57d4f35ee8272f231da9d2802209d87154b96e970bbe421b6a",
-        "size": 11450770
+        "size": 11450770,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-sakura/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-sakura/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelsakura--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-sakura/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -480,15 +636,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-skyscrapers/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelskyscrapers--bg.mp4",
         "sha256": "c56402cd9f5cad1c2f5d923a9677a3758ab152a6cf97a767a638b6aaed5cbedf",
-        "size": 21632174
+        "size": 21632174,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-skyscrapers/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-skyscrapers/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelskyscrapers--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-skyscrapers/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -497,15 +659,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-waterfall/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelwaterfall--bg.mp4",
         "sha256": "5d4ee70254eccd271c5b23f6f3dddc69da8e41cccb4874d43198dd34a181949b",
-        "size": 3062043
+        "size": 3062043,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-waterfall/bg.mp4"
+        ]
       },
       {
         "path": "font/PixelifySans-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-waterfall/font/PixelifySans-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/pixelwaterfall--font__PixelifySans-Bold.ttf",
         "sha256": "7da4a657e842e0266b1f225acfe080756e2b20df064a16edc3733a42d4789ca8",
-        "size": 50872
+        "size": 50872,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/pixel-waterfall/font/PixelifySans-Bold.ttf"
+        ]
       }
     ]
   },
@@ -514,15 +682,21 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_1/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/reverse1999first--bg.mp4",
         "sha256": "2048b2c3c3caa45142c65825bac33a9902197f54afe87289308bce7d7e636163",
-        "size": 21155204
+        "size": 21155204,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_1/bg.mp4"
+        ]
       },
       {
         "path": "font/Cinzel-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_1/font/Cinzel-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/reverse1999first--font__Cinzel-Bold.ttf",
         "sha256": "f606ab3a8a0a75863022676ea496478bb0f4d520ae8c40b6050df3d6dbffad20",
-        "size": 77060
+        "size": 77060,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_1/font/Cinzel-Bold.ttf"
+        ]
       }
     ]
   },
@@ -531,21 +705,30 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_2/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/reverse1999second--bg.mp4",
         "sha256": "6a75da81c19749d280b7e7f02987a007eecfa89521661fa0d0290af8d9e7cc0e",
-        "size": 6323204
+        "size": 6323204,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_2/bg.mp4"
+        ]
       },
       {
         "path": "font/Cinzel-Bold.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_2/font/Cinzel-Bold.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/reverse1999second--font__Cinzel-Bold.ttf",
         "sha256": "f606ab3a8a0a75863022676ea496478bb0f4d520ae8c40b6050df3d6dbffad20",
-        "size": 77060
+        "size": 77060,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_2/font/Cinzel-Bold.ttf"
+        ]
       },
       {
         "path": "logo.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_2/logo.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/reverse1999second--logo.png",
         "sha256": "c97d56f2272dcc03c848c9d43912b7a444dcfd976a2bded6f70df981cc4a9b22",
-        "size": 61345
+        "size": 61345,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/R1999_2/logo.png"
+        ]
       }
     ]
   },
@@ -554,9 +737,12 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/star-rail/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/starrail--bg.mp4",
         "sha256": "0d470c88fff7252ef4cac3fea2a29a4305c0cc84fa3384f7af78f7764d20c961",
-        "size": 12489809
+        "size": 12489809,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/star-rail/bg.mp4"
+        ]
       }
     ]
   },
@@ -565,15 +751,21 @@
     "files": [
       {
         "path": "TheLastShuriken.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/sword/font/The%20Last%20Shuriken.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/sword--TheLastShuriken.ttf",
         "sha256": "9edd03523accde78f242620d44c450876b6450eb4dd0c7293bbc1bc821bf1f4e",
-        "size": 28716
+        "size": 28716,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/sword/font/The%20Last%20Shuriken.ttf"
+        ]
       },
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/sword/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/sword--bg.mp4",
         "sha256": "6e8ee0f36d35d507d872ace3a12bf0813eb2db01b42831db2e8f825b2a630809",
-        "size": 43826686
+        "size": 43826686,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/sword/bg.mp4"
+        ]
       }
     ]
   },
@@ -582,39 +774,57 @@
     "files": [
       {
         "path": "ter1.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter1.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/terraria--ter1.png",
         "sha256": "03857dbd6c6d2bea59e70b41db43815b85a0500038472f71933df466cb5d8f56",
-        "size": 92262
+        "size": 92262,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter1.png"
+        ]
       },
       {
         "path": "ter2.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter2.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/terraria--ter2.png",
         "sha256": "84cfa4c6bfa29a2b6072944e495016be3be802f2c4eb0c1658882aede9672ad3",
-        "size": 107595
+        "size": 107595,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter2.png"
+        ]
       },
       {
         "path": "ter3.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter3.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/terraria--ter3.png",
         "sha256": "929bd9b291734aa8750540fcbf57e2aea00e67e50fb651a8d95a3866fe0f544b",
-        "size": 116189
+        "size": 116189,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter3.png"
+        ]
       },
       {
         "path": "ter4.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter4.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/terraria--ter4.png",
         "sha256": "7c62878dc2c58b66a4bd5ed47a0b3fe28ed7be857d7575cc1c11ccc3fbfffadd",
-        "size": 85345
+        "size": 85345,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter4.png"
+        ]
       },
       {
         "path": "ter5.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter5.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/terraria--ter5.png",
         "sha256": "74e38c4acd0b50be4809dfb62770104b211e4dc2566780902273bedaa3d1b134",
-        "size": 92888
+        "size": 92888,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/ter5.png"
+        ]
       },
       {
         "path": "terraria_logo.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/terraria_logo.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/terraria--terraria_logo.png",
         "sha256": "7b8941dde02eaa5319d1a9c36e29da02fede94fcc63911d570d6d3d8e28732e9",
-        "size": 12570
+        "size": 12570,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/terraria/terraria_logo.png"
+        ]
       }
     ]
   },
@@ -623,15 +833,21 @@
     "files": [
       {
         "path": "Orbitron.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/winter/font/Orbitron-VariableFont_wght.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/winter--Orbitron.ttf",
         "sha256": "46eefc7084fd9abffd87547c47f729b6071c7f7a8d5af281266bb09e5461c435",
-        "size": 38548
+        "size": 38548,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/winter/font/Orbitron-VariableFont_wght.ttf"
+        ]
       },
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/winter/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/winter--bg.mp4",
         "sha256": "47e61fa6ada109c1fb577ef43010289eb00a04f2577ebc61677ddc7c9be1e026",
-        "size": 17692687
+        "size": 17692687,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/winter/bg.mp4"
+        ]
       }
     ]
   },
@@ -640,15 +856,21 @@
     "files": [
       {
         "path": "Itim-Regular.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/women-umbrella/font/Itim-Regular.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/womenumbrella--Itim-Regular.ttf",
         "sha256": "acdd351e7e72ab5e3d16cc26cda212c51482905cd83cc5bfb8c799c272e0e09a",
-        "size": 362640
+        "size": 362640,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/women-umbrella/font/Itim-Regular.ttf"
+        ]
       },
       {
         "path": "bg.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/women-umbrella/bg.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/womenumbrella--bg.png",
         "sha256": "8524ac4c367827143b3e2ef9e9abe5700b874ab39e81626878571b07d01c0513",
-        "size": 3025537
+        "size": 3025537,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/women-umbrella/bg.png"
+        ]
       }
     ]
   },
@@ -657,21 +879,30 @@
     "files": [
       {
         "path": "Orbitron.ttf",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/wuwa/font/Orbitron-VariableFont_wght.ttf",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/wuwa--Orbitron.ttf",
         "sha256": "46eefc7084fd9abffd87547c47f729b6071c7f7a8d5af281266bb09e5461c435",
-        "size": 38548
+        "size": 38548,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/wuwa/font/Orbitron-VariableFont_wght.ttf"
+        ]
       },
       {
         "path": "bg.mp4",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/wuwa/bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/wuwa--bg.mp4",
         "sha256": "a9db69711c6ff628000f86b4e33171c935d69909c225620637a6b59d4c83a698",
-        "size": 28229588
+        "size": 28229588,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/wuwa/bg.mp4"
+        ]
       },
       {
         "path": "logo.png",
-        "url": "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/wuwa/logo.png",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/wuwa--logo.png",
         "sha256": "368b0aecc48bb864f308e65e72ab9036e0380eec89180e1c7f9d2176bdb1f54f",
-        "size": 13208
+        "size": 13208,
+        "mirrors": [
+          "https://raw.githubusercontent.com/Darkkal44/qylock/f6561e2ceae33f26e5e660742a5df2f725cbe514/themes/wuwa/logo.png"
+        ]
       }
     ]
   },
@@ -680,9 +911,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/animegirlgtr--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/animegirlgtr--bg.mp4",
         "sha256": "4179272f923af7ea5ef133df9f51e82eec7665ffbf1023f272075fb4c7393546",
-        "size": 20668578
+        "size": 20668578,
+        "mirrors": []
       }
     ]
   },
@@ -691,9 +923,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/blackcatwater--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/blackcatwater--bg.mp4",
         "sha256": "68265c8a27abb482da6b078f3637ac832cf5fcb725746c69c16e40b93c142f18",
-        "size": 84682313
+        "size": 84682313,
+        "mirrors": []
       }
     ]
   },
@@ -702,9 +935,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/moonlitroofcat--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/moonlitroofcat--bg.mp4",
         "sha256": "481ea913d9c1177af889a18f520c1d8cbdcd7ccd11f48061f88f4c3ea03052fa",
-        "size": 17436205
+        "size": 17436205,
+        "mirrors": []
       }
     ]
   },
@@ -713,9 +947,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/nissan350znight--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/nissan350znight--bg.mp4",
         "sha256": "d3e8024588a72d2fa306e40b34f6c5e451f9918739438f26358433ce6e67efba",
-        "size": 46991038
+        "size": 46991038,
+        "mirrors": []
       }
     ]
   },
@@ -724,9 +959,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/porsche911darkness--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/porsche911darkness--bg.mp4",
         "sha256": "091e07ee3985a687f5e28334731c9f01b8eccf81e48bf4e925a200726981384d",
-        "size": 8756843
+        "size": 8756843,
+        "mirrors": []
       }
     ]
   },
@@ -735,9 +971,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/skyliner34rain--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/skyliner34rain--bg.mp4",
         "sha256": "acb939039c134d2383e9b5c9742e828e30cb8379da76718dd3f17a5e0393a31d",
-        "size": 7949382
+        "size": 7949382,
+        "mirrors": []
       }
     ]
   },
@@ -746,9 +983,10 @@
     "files": [
       {
         "path": "bg.mp4",
-        "url": "https://github.com/SmoothPixels/lock-designs/releases/download/media-1/supercarsakura--bg.mp4",
+        "url": "https://github.com/ki11e6/omarchy-lock-studio/releases/download/assets-1/supercarsakura--bg.mp4",
         "sha256": "f34433c2c58560b05c395faf6f1a5d54f04f1557c7885234c2e1a1f643bc8446",
-        "size": 61402817
+        "size": 61402817,
+        "mirrors": []
       }
     ]
   }
