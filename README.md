@@ -1,4 +1,4 @@
-# Lock Designs
+# Lock Studio
 
 ![preview](preview.png)
 
@@ -13,7 +13,7 @@ Two of the qylock ports, **Genshin Impact** and **Terraria**, change their backg
 ## Install
 
 ```sh
-omarchy plugin add https://github.com/SmoothPixels/lock-designs.git --enable
+omarchy plugin add https://github.com/ki11e6/omarchy-lock-studio.git --enable
 ```
 
 Only one lock screen plugin can be active at a time, so disable any other lock plugin first (`omarchy plugin list` shows what is enabled). Then open the picker:
