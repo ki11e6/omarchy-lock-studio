@@ -44,7 +44,7 @@ DesignBase {
 
   FileView {
     id: colorOverrides
-    path: Quickshell.env("HOME") + "/.config/omarchy/lock-designs/pixel-cyberpunk-assets/colors.json"
+    path: Quickshell.env("HOME") + "/.config/omarchy/lock-studio/pixel-cyberpunk-assets/colors.json"
     printErrors: false
     onLoaded: {
       try {

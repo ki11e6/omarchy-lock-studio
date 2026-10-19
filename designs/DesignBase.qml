@@ -48,6 +48,11 @@ Item {
   // Family the theme-following originals use for clocks and captions. Set
   // from the picker's Font dropdown; defaults to the theme's font.
   property string displayFont: Style.font.family
+  // Lock Studio's personal settings. An empty displayName means "use the
+  // login name"; wallpaperBlur and wallpaperDim apply to wallpaper designs.
+  property string displayName: ""
+  property bool wallpaperBlur: true
+  property real wallpaperDim: 0
 
   // Some hosts render a design to a still image for boot splashes and want
   // the input chrome hidden (snapshotMode) or gone entirely (snapshotBare).
@@ -73,7 +78,7 @@ Item {
   property bool passwordVisible: false
 
   readonly property bool errorState: failureMessage.length > 0
-  readonly property string userName: Quickshell.env("USER") || Quickshell.env("LOGNAME") || "user"
+  readonly property string userName: displayName.length > 0 ? displayName : (Quickshell.env("USER") || Quickshell.env("LOGNAME") || "user")
   readonly property string userInitial: userName.length > 0 ? userName.charAt(0).toUpperCase() : "?"
   readonly property bool hasAvatar: avatarPath.length > 0
   readonly property string avatarUrl: hasAvatar ? fileUrl(avatarPath, avatarVersion) : ""

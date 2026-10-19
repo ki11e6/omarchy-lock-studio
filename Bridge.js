@@ -39,6 +39,6 @@ function watch(fn) {
 function broadcast() {
   var list = watchers.slice()
   for (var i = 0; i < list.length; i++) {
-    try { list[i](facade) } catch (e) { console.warn("lock-designs bridge: " + e) }
+    try { list[i](facade) } catch (e) { console.warn("lock-studio bridge: " + e) }
   }
 }

@@ -8,7 +8,7 @@
 #
 #   tools/pin-assets.sh <40-char-commit> [cache-dir]
 #
-# Files are fetched into the cache dir (default ~/.cache/lock-designs/pin/
+# Files are fetched into the cache dir (default ~/.cache/lock-studio/pin/
 # <commit>) and reused on later runs, so re-pinning the same commit after a
 # catalog edit costs no bandwidth.
 set -euo pipefail
@@ -16,7 +16,7 @@ set -euo pipefail
 PLUGIN_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 CATALOG="$PLUGIN_DIR/designs/thirdparty-assets.json"
 COMMIT="${1:-}"
-CACHE="${2:-${XDG_CACHE_HOME:-$HOME/.cache}/lock-designs/pin/$COMMIT}"
+CACHE="${2:-${XDG_CACHE_HOME:-$HOME/.cache}/lock-studio/pin/$COMMIT}"
 
 if [[ ! $COMMIT =~ ^[0-9a-f]{40}$ ]]; then
   echo "usage: tools/pin-assets.sh <full 40-character commit sha> [cache-dir]" >&2

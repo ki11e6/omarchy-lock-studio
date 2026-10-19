@@ -31,7 +31,7 @@ for tool in jq gh sha256sum; do command -v "$tool" >/dev/null || { echo "missing
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 COMMIT=$(jq -r '[.[] | .files[] | .url] | map(capture("qylock/(?<c>[0-9a-f]{40})/").c) | first' "$CATALOG")
 [[ $COMMIT =~ ^[0-9a-f]{40}$ ]] || { echo "catalog is not pinned to a commit, run tools/pin-assets.sh first" >&2; exit 1; }
-CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/lock-designs/pin/$COMMIT"
+CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/lock-studio/pin/$COMMIT"
 [[ -d $CACHE ]] || { echo "no pin cache at $CACHE, run tools/pin-assets.sh $COMMIT" >&2; exit 1; }
 
 gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Assets $TAG" --notes "Verified asset mirror for designs/thirdparty-assets.json. Every file's SHA-256 is recorded in the catalog." --latest=false

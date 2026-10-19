@@ -40,6 +40,7 @@ DesignBase {
     sourceSize.width: width
     sourceSize.height: height
   }
+  Rectangle { anchors.fill: parent; color: "black"; opacity: lock.wallpaperDim; visible: opacity > 0 }
 
   // The veil: opaque theme background at the edges, clear in the middle.
   Shape {
