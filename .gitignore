@@ -5,3 +5,7 @@
 # commit any of them; that is the entire point of the download-on-demand
 # design and it keeps a clone small.
 *-assets/
+
+# Private working docs (plans, research): never committed
+docs/plans/
+docs/research/
