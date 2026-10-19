@@ -57,7 +57,8 @@ while IFS=$'\t' read -r id path sha url; do
   if [[ $path =~ $RESTRICTED ]]; then continue; fi
   if (( FONTS_ONLY )) && [[ ! ${path,,} =~ \.(ttf|otf)$ ]]; then continue; fi
   # Files already served from a release of this repository need no mirror.
-  if [[ $url == https://github.com/$REPO/releases/download/* ]]; then continue; fi
+  # --primary uploads them again, so a re-pin reaches the release.
+  if (( ! PRIMARY )) && [[ $url == https://github.com/$REPO/releases/download/* ]]; then continue; fi
   src="$CACHE/$id/$path"
   [[ -f $src ]] || { echo "missing from cache: $src" >&2; exit 1; }
   got=$(sha256sum "$src" | cut -d' ' -f1)
