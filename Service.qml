@@ -824,7 +824,23 @@ Item {
           wallpaperBlur: root.wallpaperBlur
           wallpaperDim: root.wallpaperDim
         }
+        // Below the widget layer so widget controls work in the preview; a
+        // click elsewhere, card padding excluded, closes it.
+        MouseArea {
+          anchors.fill: parent
+          acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+          onClicked: function(mouse) {
+            var widgets = previewWidgets.item
+            var corner = widgets && widgets.visible ? widgets.childAt(mouse.x, mouse.y) : null
+            if (corner) {
+              var p = corner.mapFromItem(widgets, mouse.x, mouse.y)
+              if (corner.childAt(p.x, p.y)) return
+            }
+            root.previewVisible = false
+          }
+        }
         Loader {
+          id: previewWidgets
           anchors.fill: parent
           z: 10
           active: root.anyWidgetEnabled
@@ -832,12 +848,6 @@ Item {
           onLoaded: root.bindWidgetLayer(item, function() { return root.previewVisible })
         }
       }
-    }
-
-    MouseArea {
-      anchors.fill: parent
-      acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-      onClicked: root.previewVisible = false
     }
 
     Item {
