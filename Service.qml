@@ -132,11 +132,33 @@ Item {
 
   // A wallpaper chosen in the settings wins over Omarchy's background; a
   // path that no longer resolves falls back to it.
+  // A refresh asked for while a lookup runs is replayed once it exits, so a
+  // setting changed mid-lookup isn't lost.
+  property bool backgroundRefreshPending: false
+  property bool avatarRefreshPending: false
+  // The commands are built here rather than bound: onWallpaperSettingChanged
+  // and onAvatarSettingChanged run before a binding on the same setting
+  // re-evaluates, so a bound command would still hold the previous path.
   function refreshBackground() {
-    if (wallpaperSetting.length > 0) { if (!wallpaperProc.running) wallpaperProc.running = true }
-    else if (!readlinkProc.running) readlinkProc.running = true
+    if (wallpaperProc.running || readlinkProc.running) { backgroundRefreshPending = true; return }
+    if (wallpaperSetting.length > 0) {
+      wallpaperProc.command = ["bash", "-c", "[ -f \"$1\" ] && realpath -e -- \"$1\"",
+        "lock-studio-wallpaper", expandHome(wallpaperSetting)]
+      wallpaperProc.running = true
+    } else readlinkProc.running = true
   }
-  function refreshAvatar() { if (!avatarProc.running) avatarProc.running = true }
+  function refreshAvatar() {
+    if (avatarProc.running) { avatarRefreshPending = true; return }
+    avatarProc.command = ["bash", "-c", "for f; do [ -f \"$f\" ] && [ -r \"$f\" ] && { realpath -e -- \"$f\"; exit 0; }; done; exit 1",
+      "lock-studio-avatar", expandHome(avatarSetting),
+      "/var/lib/AccountsService/icons/" + userName, home + "/.face", home + "/.face.icon"]
+    avatarProc.running = true
+  }
+  function replayBackgroundRefresh() {
+    if (!backgroundRefreshPending) return
+    backgroundRefreshPending = false
+    Qt.callLater(refreshBackground)
+  }
   function expandHome(p) { return String(p || "").replace(/^~(?=\/|$)/, home) }
   function refreshFingerprintStatus() { if (!fingerprintCheckProc.running) fingerprintCheckProc.running = true }
 
@@ -202,6 +224,7 @@ Item {
 
   // "dim" keeps the panel on and only darkens the lock surface.
   function runBlank() {
+    if (blankMode === "never") return
     displayBlanked = true
     if (blankMode === "dim") { displayDimmed = true; return }
     if (!blankProcess.running) blankProcess.running = true
@@ -367,7 +390,8 @@ Item {
 
   function setSetting(key, value) {
     var k = String(key || "")
-    if (!(k in settingDefaults) && k !== "twelveHour" && k !== "font") return "unknown-key"
+    // hasOwnProperty, not `in`: `in` also accepts prototype names like "toString".
+    if (!Object.prototype.hasOwnProperty.call(settingDefaults, k) && k !== "twelveHour" && k !== "font") return "unknown-key"
     var patch = {}
     patch[k] = value
     saveSettings(patch)
@@ -829,6 +853,7 @@ Item {
   Process {
     id: readlinkProc
     command: ["readlink", "-f", root.currentBackgroundLink]
+    onExited: root.replayBackgroundRefresh()
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: {
@@ -844,7 +869,7 @@ Item {
 
   Process {
     id: wallpaperProc
-    command: ["realpath", "-e", "--", root.expandHome(root.wallpaperSetting)]
+    onExited: root.replayBackgroundRefresh()
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: {
@@ -858,15 +883,17 @@ Item {
     }
   }
 
-  // First readable of: the configured avatar, AccountsService's icon,
+  // First readable file of: the configured avatar, AccountsService's icon,
   // ~/.face, ~/.face.icon. Nothing found leaves designs on the initial.
   property string avatarPath: ""
   property int avatarVersion: 0
   Process {
     id: avatarProc
-    command: ["bash", "-c", "for f; do [ -r \"$f\" ] && { realpath -e -- \"$f\"; exit 0; }; done; exit 1",
-      "lock-studio-avatar", root.expandHome(root.avatarSetting),
-      "/var/lib/AccountsService/icons/" + root.userName, root.home + "/.face", root.home + "/.face.icon"]
+    onExited: {
+      if (!root.avatarRefreshPending) return
+      root.avatarRefreshPending = false
+      Qt.callLater(root.refreshAvatar)
+    }
     stdout: StdioCollector {
       waitForEnd: true
       onStreamFinished: {
@@ -928,14 +955,19 @@ Item {
 
   // Asset folders lock-designs already downloaded (and verified) are copied
   // over once, never overwriting, so switching doesn't mean downloading again.
+  // The marker keeps a later Remove from being undone on the next start.
   readonly property string syncScript: '
     set -e
     mkdir -p "$1"
     rsync -a --exclude settings.json "$0/designs/" "$1/"
     old="$HOME/.config/omarchy/lock-designs"
-    for d in "$old"/*-assets; do
-      if [ -d "$d" ] && [ ! -e "$1/$(basename "$d")" ]; then cp -a --reflink=auto -- "$d" "$1/"; fi
-    done
+    marker="$1/.lock-designs-assets-migrated"
+    if [ ! -e "$marker" ]; then
+      for d in "$old"/*-assets; do
+        if [ -d "$d" ] && [ ! -e "$1/$(basename "$d")" ]; then cp -a --reflink=auto -- "$d" "$1/"; fi
+      done
+      touch "$marker"
+    fi
   '
 
   // Every *.qml in designsDir whose root is a DesignBase is a design. Marker
@@ -1301,7 +1333,7 @@ Item {
     // (numbers, true/false), falling back to the plain string.
     function setSetting(key: string, value: string): string {
       var parsed = value
-      if (typeof root.settingDefaults[key] !== "string") {
+      if (key !== "font" && typeof root.settingDefaults[key] !== "string") {
         try { parsed = JSON.parse(value) } catch (e) {}
       }
       return root.setSetting(key, parsed)
@@ -1364,7 +1396,7 @@ Item {
     function setDesign(id) { return root.setDesign(id) }
     function setTwelveHour(on) { root.setTwelveHour(on) }
     function setDisplayFont(family) { root.setDisplayFont(family) }
-    function rescanDesigns() { root.rescanDesigns(); root.refreshBackground(); root.refreshFingerprintStatus() }
+    function rescanDesigns() { root.rescanDesigns(); root.refreshBackground(); root.refreshAvatar(); root.refreshFingerprintStatus() }
     function downloadAssets(id) { return root.downloadAssets(id) }
     function cancelDownload(id) { root.cancelDownload(id) }
     function removeAssets(id) { return root.removeAssets(id) }
